@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Fichiers sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Fichiers de ressources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Documents">
+      <UniqueIdentifier>{1ffca815-5ffd-4a20-8dc9-170d0c0328a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Views">
+      <UniqueIdentifier>{7f722144-519e-4b2d-9fa1-343c9fc29c23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Documents">
+      <UniqueIdentifier>{363ab8e5-5a0f-4250-b89d-9f7779ec1e30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Views">
+      <UniqueIdentifier>{210504fb-96de-4431-af79-b45a2c0ea4b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Panes">
+      <UniqueIdentifier>{ca7875dd-a342-4cd9-9dfd-4e58bce8bab8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Panes">
+      <UniqueIdentifier>{fee323ae-dd2e-43bc-b1cf-3d1152ffd44e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Controls">
+      <UniqueIdentifier>{b0198851-673d-4f4d-b092-a208ca294ea3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Controls">
+      <UniqueIdentifier>{d7d1be3a-72a0-4965-a53f-44b182c76a63}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NoiseMapGenerator.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="MainTabView.h">
+      <Filter>Fichiers d%27en-tête\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="MainDocument.h">
+      <Filter>Fichiers d%27en-tête\Documents</Filter>
+    </ClInclude>
+    <ClInclude Include="HeightMapView.h">
+      <Filter>Fichiers d%27en-tête\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="ColourMapView.h">
+      <Filter>Fichiers d%27en-tête\Views</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigurationPane.h">
+      <Filter>Fichiers d%27en-tête\Panes</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigurationPropCtrl.h">
+      <Filter>Fichiers d%27en-tête\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="LogPane.h">
+      <Filter>Fichiers d%27en-tête\Panes</Filter>
+    </ClInclude>
+    <ClInclude Include="LogListCtrl.h">
+      <Filter>Fichiers d%27en-tête\Controls</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="NoiseMapGenerator.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="MainTabView.cpp">
+      <Filter>Fichiers sources\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="MainDocument.cpp">
+      <Filter>Fichiers sources\Documents</Filter>
+    </ClCompile>
+    <ClCompile Include="HeightMapView.cpp">
+      <Filter>Fichiers sources\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="ColourMapView.cpp">
+      <Filter>Fichiers sources\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfigurationPane.cpp">
+      <Filter>Fichiers sources\Panes</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfigurationPropCtrl.cpp">
+      <Filter>Fichiers sources\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="LogPane.cpp">
+      <Filter>Fichiers sources\Panes</Filter>
+    </ClCompile>
+    <ClCompile Include="LogListCtrl.cpp">
+      <Filter>Fichiers sources\Controls</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="NoiseMapGenerator.reg" />
+    <None Include="res\NoiseMapGenerator.rc2">
+      <Filter>Fichiers de ressources</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="NoiseMapGenerator.rc">
+      <Filter>Fichiers de ressources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\userimages.bmp">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="res\NoiseMapGeneratorDoc.ico">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="res\NoiseMapGenerator.ico">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="res\Toolbar.bmp">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="res\Toolbar256.bmp">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
