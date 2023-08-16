@@ -71,7 +71,7 @@ private:
 };
 
 #ifndef _DEBUG  // version Debug dans MainTabView.cpp
-inline CMainDocument* CColourMapView::GetDocument() const
+inline CMainDocument* CHeightMapView::GetDocument() const
 {
    return reinterpret_cast <CMainDocument*>(m_pDocument);
 }
