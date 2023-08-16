@@ -9,4 +9,4 @@
   <li>English and french translation</li>
 </ul>
 
-![NoiseMapGenerator](https://zupimages.net/up/23/33/obcs.png)
+![NoiseMapGenerator](https://zupimages.net/up/23/33/8r5b.png)
