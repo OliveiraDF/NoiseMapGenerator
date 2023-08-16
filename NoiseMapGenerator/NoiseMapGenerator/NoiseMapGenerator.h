@@ -62,6 +62,9 @@ public:
    afx_msg void OnAppAbout();
 
    DECLARE_MESSAGE_MAP()
+
+public:
+   CString GetVersion() const;
 };
 
 extern CNoiseMapGeneratorApp theApp;

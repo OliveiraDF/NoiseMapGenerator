@@ -38,6 +38,7 @@
 #define IDS_LOG_FULL_SCREEN_ON          148
 #define IDS_LOG_FULL_SCREEN_OFF         149
 #define IDS_EDIT_MENU                   306
+#define IDC_STATIC_ABOUT_PRODUCT        1000
 #define ID_AFFICHAGE_CONFIGURATION      32771
 #define ID_VIEW_CONFIGURATION           32772
 #define ID_AFFICHAGE_LOG                32775
@@ -50,9 +51,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        310
+#define _APS_NEXT_RESOURCE_VALUE        311
 #define _APS_NEXT_COMMAND_VALUE         32784
-#define _APS_NEXT_CONTROL_VALUE         1000
+#define _APS_NEXT_CONTROL_VALUE         1001
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

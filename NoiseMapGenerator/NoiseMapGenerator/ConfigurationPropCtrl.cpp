@@ -77,6 +77,10 @@ int CConfigurationPropCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
    SetFont(&afxGlobalData.fontRegular);
 
    CMFCPropertyGridProperty* pGroup = new CMFCPropertyGridProperty(I18N(IDS_PROP_GROUP_LABEL));
+   if (!pGroup)
+   {
+       return -1;
+   }
 
    COleVariant NullVar;
 
@@ -112,7 +116,6 @@ int CConfigurationPropCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 afx_msg LRESULT CConfigurationPropCtrl::OnNewOpenDocument(WPARAM, LPARAM lParam)
 {
    CMainDocument* pDocument = reinterpret_cast <CMainDocument*>(lParam);
-
    ASSERT(pDocument);
    ASSERT_VALID(pDocument);
 
