@@ -37,6 +37,12 @@
     <Filter Include="Fichiers sources\Controls">
       <UniqueIdentifier>{d7d1be3a-72a0-4965-a53f-44b182c76a63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Toolbars">
+      <UniqueIdentifier>{81ca30c0-c185-40d6-b569-2ff74b3b7c1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Toolbars">
+      <UniqueIdentifier>{93efb290-77c7-4b44-a762-f11fa9d9189d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NoiseMapGenerator.h">
@@ -81,6 +87,9 @@
     <ClInclude Include="LogListCtrl.h">
       <Filter>Fichiers d%27en-tête\Controls</Filter>
     </ClInclude>
+    <ClInclude Include="LogToolBar.h">
+      <Filter>Fichiers d%27en-tête\Toolbars</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NoiseMapGenerator.cpp">
@@ -116,6 +125,9 @@
     <ClCompile Include="LogListCtrl.cpp">
       <Filter>Fichiers sources\Controls</Filter>
     </ClCompile>
+    <ClCompile Include="LogToolBar.cpp">
+      <Filter>Fichiers sources\Toolbars</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="NoiseMapGenerator.reg" />
@@ -142,6 +154,9 @@
       <Filter>Fichiers de ressources</Filter>
     </Image>
     <Image Include="res\Toolbar256.bmp">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="res\toolbar1.bmp">
       <Filter>Fichiers de ressources</Filter>
     </Image>
   </ItemGroup>

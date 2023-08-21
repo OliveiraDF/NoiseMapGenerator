@@ -28,6 +28,7 @@
 
 #pragma once
 
+#include "LogToolBar.h"
 #include "LogListCtrl.h"
 
 class CLogPane : public CDockablePane, public scion::core::ILogObserver
@@ -49,10 +50,13 @@ protected:
 
 private:
 
-   CLogListCtrl m_ctrlLogList;
+	CLogToolBar		m_wndToolBar;
+	CLogListCtrl	m_ctrlLogList;
 
 public:
 
    afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
    afx_msg void OnSize(UINT nType, int cx, int cy);
+   afx_msg void OnLogClear();
+
 };

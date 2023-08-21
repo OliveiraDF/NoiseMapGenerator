@@ -30,9 +30,6 @@
 #include "NoiseMapGenerator.h"
 #include "LogPane.h"
 
-
-// CLogPane
-
 IMPLEMENT_DYNAMIC(CLogPane, CDockablePane)
 
 CLogPane::CLogPane()
@@ -46,6 +43,7 @@ CLogPane::~CLogPane()
 BEGIN_MESSAGE_MAP(CLogPane, CDockablePane)
 ON_WM_CREATE()
 ON_WM_SIZE()
+ON_COMMAND(ID_LOG_CLEAR, &CLogPane::OnLogClear)
 END_MESSAGE_MAP()
 
 
@@ -55,6 +53,16 @@ int CLogPane::OnCreate(LPCREATESTRUCT lpCreateStruct)
    {
       return -1;
    }
+
+   if (!m_wndToolBar.Create(this, AFX_DEFAULT_TOOLBAR_STYLE, AFX_IDW_TOOLBAR + 1) ||
+       !m_wndToolBar.LoadToolBar(IDR_TOOLBAR_LOG, 0, 0, TRUE))
+   {
+       return -1;
+   }
+
+   m_wndToolBar.SetPaneStyle(m_wndToolBar.GetPaneStyle() | CBRS_TOOLTIPS | CBRS_FLYBY);
+   m_wndToolBar.SetPaneStyle(m_wndToolBar.GetPaneStyle() & ~(CBRS_GRIPPER | CBRS_SIZE_DYNAMIC | CBRS_BORDER_TOP | CBRS_BORDER_BOTTOM | CBRS_BORDER_LEFT | CBRS_BORDER_RIGHT));
+   m_wndToolBar.SetRouteCommandsViaFrame(FALSE);
 
    // TODO:  Ajoutez ici votre code de création spécialisé
    if (!m_ctrlLogList.Create(LBS_NOINTEGRALHEIGHT | LBS_NOSEL | WS_CHILD | WS_VISIBLE | WS_HSCROLL | WS_VSCROLL, { 0, 0, 0, 0 }, this, 1))
@@ -70,7 +78,10 @@ void CLogPane::OnSize(UINT nType, int cx, int cy)
    CDockablePane::OnSize(nType, cx, cy);
 
    // TODO: ajoutez ici le code de votre gestionnaire de messages
-   m_ctrlLogList.SetWindowPos(NULL, 0, 0, cx, cy, SWP_NOACTIVATE | SWP_NOZORDER);
+   const INT cyTlb = m_wndToolBar.CalcFixedLayout(FALSE, TRUE).cy;
+
+   m_wndToolBar.SetWindowPos(NULL, 0, 0, cx, cyTlb, SWP_NOACTIVATE | SWP_NOZORDER);
+   m_ctrlLogList.SetWindowPos(NULL, 0, cyTlb, cx, cy - cyTlb, SWP_NOACTIVATE | SWP_NOZORDER);
 }
 
 void CLogPane::OnMessage(const CTime& dtDate, scion::core::ELogLevel eLogLevel, LPCTSTR lpszMessage)
@@ -87,4 +98,10 @@ void CLogPane::OnMessage(const CTime& dtDate, scion::core::ELogLevel eLogLevel, 
    {
       m_ctrlLogList.SetItemData(nIndex, eLogLevel);
    }
+}
+
+void CLogPane::OnLogClear()
+{
+    // TODO: ajoutez ici le code de votre gestionnaire de commande
+    m_ctrlLogList.ResetContent();
 }

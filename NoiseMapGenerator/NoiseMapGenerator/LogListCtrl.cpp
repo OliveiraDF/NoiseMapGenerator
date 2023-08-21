@@ -30,9 +30,6 @@
 #include "NoiseMapGenerator.h"
 #include "LogListCtrl.h"
 
-
-// CLogListCtrl
-
 IMPLEMENT_DYNAMIC(CLogListCtrl, CListBox)
 
 CLogListCtrl::CLogListCtrl()
@@ -47,12 +44,6 @@ BEGIN_MESSAGE_MAP(CLogListCtrl, CListBox)
 ON_WM_CREATE()
 ON_WM_CTLCOLOR_REFLECT()
 END_MESSAGE_MAP()
-
-
-
-// gestionnaires de messages de CLogListCtrl
-
-
 
 int CLogListCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {

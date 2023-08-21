@@ -202,6 +202,7 @@
     <ClInclude Include="HeightMapView.h" />
     <ClInclude Include="LogListCtrl.h" />
     <ClInclude Include="LogPane.h" />
+    <ClInclude Include="LogToolBar.h" />
     <ClInclude Include="MainDocument.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MainTabView.h" />
@@ -217,6 +218,7 @@
     <ClCompile Include="HeightMapView.cpp" />
     <ClCompile Include="LogListCtrl.cpp" />
     <ClCompile Include="LogPane.cpp" />
+    <ClCompile Include="LogToolBar.cpp" />
     <ClCompile Include="MainDocument.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="MainTabView.cpp" />
@@ -239,6 +241,7 @@
     <Image Include="res\NoiseMapGenerator.ico" />
     <Image Include="res\NoiseMapGeneratorDoc.ico" />
     <Image Include="res\Toolbar.bmp" />
+    <Image Include="res\toolbar1.bmp" />
     <Image Include="res\Toolbar256.bmp" />
     <Image Include="res\userimages.bmp" />
   </ItemGroup>

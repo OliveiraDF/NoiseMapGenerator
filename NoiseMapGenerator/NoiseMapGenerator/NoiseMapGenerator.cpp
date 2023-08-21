@@ -93,7 +93,6 @@ BOOL CNoiseMapGeneratorApp::InitInstance()
    SetRegistryKey(_T("Retro Technique"));
    LoadStdProfileSettings(4);    // Charge les options de fichier INI standard (y compris les derniers fichiers utilisés)
 
-
    InitContextMenuManager();
 
    InitKeyboardManager();
