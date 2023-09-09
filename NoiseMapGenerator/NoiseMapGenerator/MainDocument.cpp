@@ -63,7 +63,7 @@ BOOL CMainDocument::OnNewDocument()
       return FALSE;
    }
 
-   scion::core::Log(I18N(IDS_LOG_NEW_DOCUMENT));
+   retro::core::Log(I18N(IDS_LOG_NEW_DOCUMENT));
 
    // TODO: ajoutez ici le code de réinitialisation
    // (les documents SDI réutiliseront ce document)
@@ -75,7 +75,7 @@ BOOL CMainDocument::OnNewDocument()
    m_fPersistance = 0.5f;
    m_fLacunarity  = 2.f;
 
-   ::AfxGetMainWnd()->PostMessage(WM_NEW_OPEN_DOCUMENT, 0U, (LPARAM)this);
+   ::AfxGetMainWnd()->SendMessageToDescendants(WM_NEW_OPEN_DOCUMENT, 0U, (LPARAM)this);
    Generate(TRUE);
 
    return TRUE;
@@ -161,12 +161,12 @@ HRESULT CMainDocument::Generate(BOOL bRealloc)
       }
    }
 
-   scion::core::NoiseMap(m_pNoiseMap, m_szMap.cx, m_szMap.cy, m_fScale, m_uOctaveCount, m_fPersistance, m_fLacunarity);
+   retro::core::NoiseMap(m_pNoiseMap, m_szMap.cx, m_szMap.cy, m_fScale, m_uOctaveCount, m_fPersistance, m_fLacunarity);
 
    for (UINT i = 0; i < uSize; i++)
    {
       const DOUBLE fCurrentHeight = m_pNoiseMap[i];
-      const BYTE   uNG            = static_cast <BYTE>(scion::core::Lerp(0., 255., fCurrentHeight));
+      const BYTE   uNG            = static_cast <BYTE>(retro::core::Lerp(0., 255., fCurrentHeight));
       m_pHeightMap[i] = RGB(uNG, uNG, uNG);
       for (UINT j = 0; j < s_uRegionCount; j++)
       {
@@ -178,7 +178,7 @@ HRESULT CMainDocument::Generate(BOOL bRealloc)
       }
    }
 
-   scion::core::Log(I18N(IDS_LOG_GENERATE_SUCCESS));
+   retro::core::Log(I18N(IDS_LOG_GENERATE_SUCCESS));
 
    UpdateAllViews(NULL);
 
@@ -312,10 +312,10 @@ BOOL CMainDocument::OnOpenDocument(LPCTSTR lpszPathName)
 
    CString strLog;
    strLog.Format(IDS_LOG_OPEN_DOCUMENT, lpszPathName);
-   scion::core::Log(strLog.GetString());
+   retro::core::Log(strLog.GetString());
 
    // TODO:  Ajoutez ici votre code de création spécialisé
-   ::AfxGetMainWnd()->PostMessage(WM_NEW_OPEN_DOCUMENT, 0U, (LPARAM)this);
+   ::AfxGetMainWnd()->SendMessageToDescendants(WM_NEW_OPEN_DOCUMENT, 0U, (LPARAM)this);
    Generate(TRUE);
 
    return TRUE;

@@ -65,14 +65,7 @@ int CConfigurationPropCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
    SetVSDotNetLook(TRUE);
    MarkModifiedProperties(TRUE);
 
-   SetCustomColors(
-      RGB(83, 83, 83),
-      RGB(245, 245, 245),
-      RGB(83, 83, 83),
-      RGB(172, 172, 172),
-      RGB(83, 83, 83),
-      RGB(245, 245, 245),
-      RGB(172, 172, 172));
+   RetroVisualManager::Apply(this);
 
    SetFont(&afxGlobalData.fontRegular);
 

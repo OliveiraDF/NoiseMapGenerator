@@ -29,7 +29,6 @@
 #pragma once
 
 #include "ConfigurationPane.h"
-#include "LogPane.h"
 
 class CMainFrame : public CFrameWndEx
 {
@@ -66,10 +65,9 @@ public:
 
 protected:
 
-   // membres incorporés de la barre de contrôle
    CMFCMenuBar m_wndMenuBar;
    CMFCStatusBar m_wndStatusBar;
-   CLogPane m_wndLogPane;
+   retro::mfc::CLogPane m_wndLogPane;
    CConfigurationPane m_wndConfigurationPane;
 
 // Fonctions générées de la table des messages
@@ -91,6 +89,5 @@ public:
 
 protected:
 
-   afx_msg LRESULT OnNewOpenDocument(WPARAM wParam, LPARAM lParam);
    afx_msg LRESULT OnUpdateProperty(WPARAM wParam, LPARAM lParam);
 };

@@ -81,15 +81,6 @@
     <ClInclude Include="ConfigurationPropCtrl.h">
       <Filter>Fichiers d%27en-tête\Controls</Filter>
     </ClInclude>
-    <ClInclude Include="LogPane.h">
-      <Filter>Fichiers d%27en-tête\Panes</Filter>
-    </ClInclude>
-    <ClInclude Include="LogListCtrl.h">
-      <Filter>Fichiers d%27en-tête\Controls</Filter>
-    </ClInclude>
-    <ClInclude Include="LogToolBar.h">
-      <Filter>Fichiers d%27en-tête\Toolbars</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NoiseMapGenerator.cpp">
@@ -118,15 +109,6 @@
     </ClCompile>
     <ClCompile Include="ConfigurationPropCtrl.cpp">
       <Filter>Fichiers sources\Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="LogPane.cpp">
-      <Filter>Fichiers sources\Panes</Filter>
-    </ClCompile>
-    <ClCompile Include="LogListCtrl.cpp">
-      <Filter>Fichiers sources\Controls</Filter>
-    </ClCompile>
-    <ClCompile Include="LogToolBar.cpp">
-      <Filter>Fichiers sources\Toolbars</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

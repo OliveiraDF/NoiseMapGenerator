@@ -328,14 +328,12 @@ void CNoiseMapGeneratorApp::SaveCustomState()
 // gestionnaires de messages de CNoiseMapGeneratorApp
 
 
-HBRUSH CAboutDlg::OnCtlColor(CDC* pDC, CWnd*, UINT)
+HBRUSH CAboutDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT uCtlColor)
 {
     // TODO:  Modifier ici les attributs du DC
 
     // TODO:  Retourner un autre pinceau si le pinceau par défaut n'est pas souhaité
-    pDC->SetBkColor(RGB(83, 83, 83));
-    pDC->SetTextColor(RGB(245, 245, 245));
-    return CreateSolidBrush(RGB(83, 83, 83));
+	return RetroVisualManager::OnCtlColor(pDC, pWnd, uCtlColor);
 }
 
 
@@ -347,8 +345,7 @@ int CAboutDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
     }
 
     // TODO:  Ajoutez ici votre code de création spécialisé
-    BOOL bValue = TRUE;
-    ::DwmSetWindowAttribute(GetSafeHwnd(), DWMWA_USE_IMMERSIVE_DARK_MODE, &bValue, sizeof(BOOL));
+	RetroVisualManager::SetWindowDarkAttribute(this);
 
     return 0;
 }

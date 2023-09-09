@@ -47,13 +47,9 @@
 #define MAKE_DUMP(x)
 #endif
 
-#include <Scion/ScionCore.h>
+#include <RetroCode/MFC.h>
 
 #define WM_NEW_OPEN_DOCUMENT    WM_APP + 1
 #define WM_UPDATE_PROPERTY      WM_NEW_OPEN_DOCUMENT + 1
-
-CString Translate(UINT uID);
-
-#define I18N(id)    Translate(id)
 
 #endif //PCH_H

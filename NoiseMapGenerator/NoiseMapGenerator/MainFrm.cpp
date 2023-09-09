@@ -47,7 +47,6 @@ ON_COMMAND(ID_VIEW_LOG, &CMainFrame::OnViewLog)
 ON_UPDATE_COMMAND_UI(ID_VIEW_LOG, &CMainFrame::OnUpdateViewLog)
 ON_COMMAND(ID_VIEW_FULLSCREEN, &CMainFrame::OnViewFullscreen)
 ON_UPDATE_COMMAND_UI(ID_VIEW_FULLSCREEN, &CMainFrame::OnUpdateViewFullscreen)
-ON_MESSAGE(WM_NEW_OPEN_DOCUMENT, &CMainFrame::OnNewOpenDocument)
 ON_MESSAGE(WM_UPDATE_PROPERTY, &CMainFrame::OnUpdateProperty)
 END_MESSAGE_MAP()
 
@@ -105,7 +104,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
       return -1;
    }
 
-   scion::core::RegisterLogObserver(&m_wndLogPane);
+   retro::core::RegisterLogObserver(&m_wndLogPane);
 
    // TODO: supprimez ces cinq lignes si vous ne souhaitez pas que la barre d'outils et la barre de menus soient ancrables
    m_wndConfigurationPane.EnableDocking(CBRS_ALIGN_ANY);
@@ -117,11 +116,9 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
    DockPane(&m_wndLogPane);
 
    // définir le gestionnaire visuel utilisé pour dessiner tous les éléments d'interface utilisateur
-   CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(CMFCVisualManagerOffice2007));
-   CMFCVisualManagerOffice2007::SetStyle(CMFCVisualManagerOffice2007::Office2007_ObsidianBlack);
+   CMFCVisualManager::SetDefaultManager(RUNTIME_CLASS(retro::mfc::CRetroVisualManager));
 
-   BOOL bValue = TRUE;
-   ::DwmSetWindowAttribute(GetSafeHwnd(), DWMWA_USE_IMMERSIVE_DARK_MODE, &bValue, sizeof(BOOL));
+   RetroVisualManager::SetWindowDarkAttribute(this);
 
    // activer le comportement de la fenêtre d'ancrage de style Visual Studio 2005
    CDockingManager::SetDockingMode(DT_SMART);
@@ -175,7 +172,7 @@ void CMainFrame::OnViewConfiguration()
    ShowPane(&m_wndConfigurationPane, !(m_wndConfigurationPane.IsVisible()), FALSE, TRUE);
    RecalcLayout();
 
-   scion::core::Log(m_wndConfigurationPane.IsVisible() ?
+   retro::core::Log(m_wndConfigurationPane.IsVisible() ?
                     I18N(IDS_LOG_CONFIGURATION_PANE_ON) :
                     I18N(IDS_LOG_CONFIGURATION_PANE_OFF));
 }
@@ -189,18 +186,18 @@ void CMainFrame::OnUpdateViewConfiguration(CCmdUI* pCmdUI)
 void CMainFrame::OnViewLog()
 {
    // TODO: ajoutez ici le code de votre gestionnaire de commande
-   ShowPane(&m_wndLogPane, !(m_wndLogPane.IsVisible()), FALSE, TRUE);
-   RecalcLayout();
+    ShowPane(&m_wndLogPane, !(m_wndLogPane.IsVisible()), FALSE, TRUE);
+    RecalcLayout();
 
-   scion::core::Log(m_wndConfigurationPane.IsVisible() ?
-                    I18N(IDS_LOG_LOG_PANE_ON) :
-                    I18N(IDS_LOG_LOG_PANE_OFF));
+    retro::core::Log(m_wndConfigurationPane.IsVisible() ?
+        I18N(IDS_LOG_LOG_PANE_ON) :
+        I18N(IDS_LOG_LOG_PANE_OFF));
 }
 
 void CMainFrame::OnUpdateViewLog(CCmdUI* pCmdUI)
 {
    // TODO: ajoutez ici le code du gestionnaire d'interface utilisateur de mise à jour des commandes
-   pCmdUI->SetCheck(m_wndLogPane.IsVisible());
+    pCmdUI->SetCheck(m_wndLogPane.IsVisible());    
 }
 
 void CMainFrame::OnViewFullscreen()
@@ -208,7 +205,7 @@ void CMainFrame::OnViewFullscreen()
    // TODO: ajoutez ici le code de votre gestionnaire de commande
    ShowFullScreen();
 
-   scion::core::Log(IsFullScreen() ?
+   retro::core::Log(IsFullScreen() ?
                    I18N(IDS_LOG_FULL_SCREEN_ON) :
                    I18N(IDS_LOG_FULL_SCREEN_OFF));
 }
@@ -217,13 +214,6 @@ void CMainFrame::OnUpdateViewFullscreen(CCmdUI* pCmdUI)
 {
    // TODO: ajoutez ici le code du gestionnaire d'interface utilisateur de mise à jour des commandes
    pCmdUI->SetCheck(IsFullScreen());
-}
-
-afx_msg LRESULT CMainFrame::OnNewOpenDocument(WPARAM wParam, LPARAM lParam)
-{
-   m_wndConfigurationPane.SendMessageToDescendants(WM_NEW_OPEN_DOCUMENT, wParam, lParam);
-
-   return 0L;
 }
 
 afx_msg LRESULT CMainFrame::OnUpdateProperty(WPARAM, LPARAM lParam)

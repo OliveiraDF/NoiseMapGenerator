@@ -93,12 +93,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>E:\Informatique\svn\Scion\trunk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Informatique\svn\RetroCode\trunk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>Dwmapi.lib;ScionCored.lib;Version.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>E:\Informatique\svn\Scion\trunk\lib\debug\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Dwmapi.lib;RetroCored.lib;RetroMFCd.lib;Version.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\Informatique\svn\RetroCode\trunk\build\RetroCode\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -118,12 +118,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>E:\Informatique\svn\Scion\trunk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Informatique\svn\RetroCode\trunk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>Dwmapi.lib;ScionCored.lib;Version.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>E:\Informatique\svn\Scion\trunk\lib\debug\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Dwmapi.lib;RetroCored.lib;RetroMFCd.lib;Version.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\Informatique\svn\RetroCode\trunk\build\RetroCode\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -145,14 +145,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>E:\Informatique\svn\Scion\trunk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Informatique\svn\RetroCode\trunk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Dwmapi.lib;ScionCore.lib;Version.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>E:\Informatique\svn\Scion\trunk\lib\release\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Dwmapi.lib;RetroCore.lib;RetroMFC.lib;Version.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\Informatique\svn\RetroCode\trunk\build\RetroCode\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -174,14 +174,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>E:\Informatique\svn\Scion\trunk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Informatique\svn\RetroCode\trunk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Dwmapi.lib;ScionCore.lib;Version.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>E:\Informatique\svn\Scion\trunk\lib\release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Dwmapi.lib;RetroCore.lib;RetroMFC.lib;Version.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\Informatique\svn\RetroCode\trunk\build\RetroCode\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -200,9 +200,6 @@
     <ClInclude Include="ConfigurationPropCtrl.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="HeightMapView.h" />
-    <ClInclude Include="LogListCtrl.h" />
-    <ClInclude Include="LogPane.h" />
-    <ClInclude Include="LogToolBar.h" />
     <ClInclude Include="MainDocument.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="MainTabView.h" />
@@ -216,9 +213,6 @@
     <ClCompile Include="ConfigurationPane.cpp" />
     <ClCompile Include="ConfigurationPropCtrl.cpp" />
     <ClCompile Include="HeightMapView.cpp" />
-    <ClCompile Include="LogListCtrl.cpp" />
-    <ClCompile Include="LogPane.cpp" />
-    <ClCompile Include="LogToolBar.cpp" />
     <ClCompile Include="MainDocument.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="MainTabView.cpp" />
