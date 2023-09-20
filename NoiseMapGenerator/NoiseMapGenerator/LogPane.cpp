@@ -57,7 +57,7 @@ int CLogPane::OnCreate(LPCREATESTRUCT lpCreateStruct)
    if (!m_wndToolBar.Create(this, AFX_DEFAULT_TOOLBAR_STYLE, AFX_IDW_TOOLBAR + 1) ||
        !m_wndToolBar.LoadToolBar(IDR_TOOLBAR_LOG, 0, 0, TRUE))
    {
-       return -1;
+      return -1;
    }
 
    m_wndToolBar.SetPaneStyle(m_wndToolBar.GetPaneStyle() | CBRS_TOOLTIPS | CBRS_FLYBY);
@@ -102,6 +102,6 @@ void CLogPane::OnMessage(const CTime& dtDate, scion::core::ELogLevel eLogLevel, 
 
 void CLogPane::OnLogClear()
 {
-    // TODO: ajoutez ici le code de votre gestionnaire de commande
-    m_ctrlLogList.ResetContent();
+   // TODO: ajoutez ici le code de votre gestionnaire de commande
+   m_ctrlLogList.ResetContent();
 }

@@ -37,6 +37,7 @@ CString Translate(UINT uID)
    CString s_zTranslate;
 
    BOOL bRet = s_zTranslate.LoadString(uID);
+
    ASSERT(bRet);
 
    return s_zTranslate;

@@ -47,12 +47,11 @@ ON_COMMAND(ID_VIEW_LOG, &CMainFrame::OnViewLog)
 ON_UPDATE_COMMAND_UI(ID_VIEW_LOG, &CMainFrame::OnUpdateViewLog)
 ON_COMMAND(ID_VIEW_FULLSCREEN, &CMainFrame::OnViewFullscreen)
 ON_UPDATE_COMMAND_UI(ID_VIEW_FULLSCREEN, &CMainFrame::OnUpdateViewFullscreen)
-ON_MESSAGE(WM_UPDATE_PROPERTY, &CMainFrame::OnUpdateProperty)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
 {
-   ID_SEPARATOR,                
+   ID_SEPARATOR,
    ID_INDICATOR_CAPS,
    ID_INDICATOR_NUM,
    ID_INDICATOR_SCRL,
@@ -186,18 +185,18 @@ void CMainFrame::OnUpdateViewConfiguration(CCmdUI* pCmdUI)
 void CMainFrame::OnViewLog()
 {
    // TODO: ajoutez ici le code de votre gestionnaire de commande
-    ShowPane(&m_wndLogPane, !(m_wndLogPane.IsVisible()), FALSE, TRUE);
-    RecalcLayout();
+   ShowPane(&m_wndLogPane, !(m_wndLogPane.IsVisible()), FALSE, TRUE);
+   RecalcLayout();
 
-    retro::core::Log(m_wndConfigurationPane.IsVisible() ?
-        I18N(IDS_LOG_LOG_PANE_ON) :
-        I18N(IDS_LOG_LOG_PANE_OFF));
+   retro::core::Log(m_wndConfigurationPane.IsVisible() ?
+                    I18N(IDS_LOG_LOG_PANE_ON) :
+                    I18N(IDS_LOG_LOG_PANE_OFF));
 }
 
 void CMainFrame::OnUpdateViewLog(CCmdUI* pCmdUI)
 {
    // TODO: ajoutez ici le code du gestionnaire d'interface utilisateur de mise à jour des commandes
-    pCmdUI->SetCheck(m_wndLogPane.IsVisible());    
+   pCmdUI->SetCheck(m_wndLogPane.IsVisible());
 }
 
 void CMainFrame::OnViewFullscreen()
@@ -206,29 +205,12 @@ void CMainFrame::OnViewFullscreen()
    ShowFullScreen();
 
    retro::core::Log(IsFullScreen() ?
-                   I18N(IDS_LOG_FULL_SCREEN_ON) :
-                   I18N(IDS_LOG_FULL_SCREEN_OFF));
+                    I18N(IDS_LOG_FULL_SCREEN_ON) :
+                    I18N(IDS_LOG_FULL_SCREEN_OFF));
 }
 
 void CMainFrame::OnUpdateViewFullscreen(CCmdUI* pCmdUI)
 {
    // TODO: ajoutez ici le code du gestionnaire d'interface utilisateur de mise à jour des commandes
    pCmdUI->SetCheck(IsFullScreen());
-}
-
-afx_msg LRESULT CMainFrame::OnUpdateProperty(WPARAM, LPARAM lParam)
-{
-   CMainDocument* pDocument = reinterpret_cast <CMainDocument*>(GetActiveDocument());
-   ASSERT(pDocument);
-   ASSERT_VALID(pDocument);
-
-   CMFCPropertyGridProperty* pProp = reinterpret_cast <CMFCPropertyGridProperty*>(lParam);
-   ASSERT(pProp);
-   ASSERT_VALID(pProp);
-
-   const DWORD_PTR uData = pProp->GetData();
-
-   pDocument->SetProperty(uData, pProp->GetValue());
-
-   return 0;
 }

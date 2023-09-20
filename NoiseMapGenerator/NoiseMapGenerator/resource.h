@@ -37,6 +37,7 @@
 #define IDS_LOG_CONFIGURATION_PANE_OFF  147
 #define IDS_LOG_FULL_SCREEN_ON          148
 #define IDS_LOG_FULL_SCREEN_OFF         149
+#define IDS_RECREATE_TARGET_MSG         150
 #define IDS_EDIT_MENU                   306
 #define IDR_TOOLBAR_LOG                 311
 #define IDC_STATIC_ABOUT_PRODUCT        1000

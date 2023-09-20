@@ -48,6 +48,7 @@ CHeightMapView::~CHeightMapView()
 BEGIN_MESSAGE_MAP(CHeightMapView, CView)
 ON_REGISTERED_MESSAGE(AFX_WM_DRAW2D, &CHeightMapView::OnDraw2D)
 ON_WM_CREATE()
+ON_REGISTERED_MESSAGE(AFX_WM_RECREATED2DRESOURCES, &CHeightMapView::OnRecreated2dresources)
 END_MESSAGE_MAP()
 
 
@@ -134,6 +135,7 @@ CMainDocument* CHeightMapView::GetDocument() const  // la version non Debug est 
 #endif //_DEBUG
 
 
+
 HRESULT CHeightMapView::Create2DResources()
 {
    // TODO: Ajoutez ici votre code d'implémentation..
@@ -165,4 +167,14 @@ HRESULT CHeightMapView::Create2DResources()
    ::DeleteObject(hBitmap);
 
    return S_OK;
+}
+
+afx_msg LRESULT CHeightMapView::OnRecreated2dresources(WPARAM wParam, LPARAM lParam)
+{
+    UNREFERENCED_PARAMETER(wParam);
+    UNREFERENCED_PARAMETER(lParam);
+
+    retro::core::Log(I18N(IDS_RECREATE_TARGET_MSG), retro::core::ELogLevel_Warning);
+
+    return 0;
 }

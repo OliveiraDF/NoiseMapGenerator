@@ -72,7 +72,7 @@ int CConfigurationPropCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
    CMFCPropertyGridProperty* pGroup = new CMFCPropertyGridProperty(I18N(IDS_PROP_GROUP_LABEL));
    if (!pGroup)
    {
-       return -1;
+      return -1;
    }
 
    COleVariant NullVar;
@@ -108,7 +108,8 @@ int CConfigurationPropCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 afx_msg LRESULT CConfigurationPropCtrl::OnNewOpenDocument(WPARAM, LPARAM lParam)
 {
-   CMainDocument* pDocument = reinterpret_cast <CMainDocument*>(lParam);
+   CMainDocument* pDocument = reinterpret_cast<CMainDocument*>(lParam);
+
    ASSERT(pDocument);
    ASSERT_VALID(pDocument);
 
@@ -127,5 +128,16 @@ void CConfigurationPropCtrl::OnPropertyChanged(CMFCPropertyGridProperty* pProp) 
    ASSERT(pProp);
    ASSERT_VALID(pProp);
 
-   ::AfxGetMainWnd()->SendMessage(WM_UPDATE_PROPERTY, 0U, (LPARAM)pProp);
+   CFrameWnd* pFrameWnd = GetTopLevelFrame();
+   ASSERT(pFrameWnd);
+   ASSERT_VALID(pFrameWnd);
+
+   ASSERT_KINDOF(CMainDocument, pFrameWnd->GetActiveDocument());
+   CMainDocument* pDocument = STATIC_DOWNCAST(CMainDocument, pFrameWnd->GetActiveDocument());
+   ASSERT(pDocument);
+   ASSERT_VALID(pDocument);
+
+   const DWORD_PTR uData = pProp->GetData();
+
+   pDocument->SetProperty(uData, pProp->GetValue());
 }

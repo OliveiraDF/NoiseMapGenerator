@@ -50,13 +50,12 @@ protected:
 
 private:
 
-	CLogToolBar		m_wndToolBar;
-	CLogListCtrl	m_ctrlLogList;
+   CLogToolBar m_wndToolBar;
+   CLogListCtrl m_ctrlLogList;
 
 public:
 
    afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
    afx_msg void OnSize(UINT nType, int cx, int cy);
    afx_msg void OnLogClear();
-
 };

@@ -50,6 +50,5 @@
 #include <RetroCode/MFC.h>
 
 #define WM_NEW_OPEN_DOCUMENT    WM_APP + 1
-#define WM_UPDATE_PROPERTY      WM_NEW_OPEN_DOCUMENT + 1
 
 #endif //PCH_H

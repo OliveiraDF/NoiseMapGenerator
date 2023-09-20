@@ -30,22 +30,20 @@
 
 class CLogToolBar : public CMFCToolBar
 {
-	DECLARE_DYNAMIC(CLogToolBar)
+   DECLARE_DYNAMIC(CLogToolBar)
 
 public:
 
-	CLogToolBar();
-	virtual ~CLogToolBar();
+   CLogToolBar();
+   virtual ~CLogToolBar();
 
 public:
 
-	void OnUpdateCmdUI(CFrameWnd* pTarget, BOOL bDisableIfNoHndler) override;
-	BOOL AllowShowOnList() const override;
-	void AdjustLayout() override;
+   void OnUpdateCmdUI(CFrameWnd* pTarget, BOOL bDisableIfNoHndler) override;
+   BOOL AllowShowOnList() const override;
+   void AdjustLayout() override;
 
 protected:
 
-	DECLARE_MESSAGE_MAP()
+   DECLARE_MESSAGE_MAP()
 };
-
-

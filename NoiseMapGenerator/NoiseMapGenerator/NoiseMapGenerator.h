@@ -64,6 +64,7 @@ public:
    DECLARE_MESSAGE_MAP()
 
 public:
+
    CString GetVersion() const;
 };
 

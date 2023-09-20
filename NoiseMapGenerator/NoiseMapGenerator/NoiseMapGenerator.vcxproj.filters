@@ -37,12 +37,6 @@
     <Filter Include="Fichiers sources\Controls">
       <UniqueIdentifier>{d7d1be3a-72a0-4965-a53f-44b182c76a63}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Toolbars">
-      <UniqueIdentifier>{81ca30c0-c185-40d6-b569-2ff74b3b7c1d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Toolbars">
-      <UniqueIdentifier>{93efb290-77c7-4b44-a762-f11fa9d9189d}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NoiseMapGenerator.h">

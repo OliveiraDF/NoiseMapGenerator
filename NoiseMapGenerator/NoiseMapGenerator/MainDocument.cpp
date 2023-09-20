@@ -48,7 +48,6 @@ CMainDocument::CMainDocument() noexcept
    , m_fPersistance(0.f)
    , m_fLacunarity(0.f)
 {
-
 }
 
 CMainDocument::~CMainDocument()
@@ -75,7 +74,7 @@ BOOL CMainDocument::OnNewDocument()
    m_fPersistance = 0.5f;
    m_fLacunarity  = 2.f;
 
-   ::AfxGetMainWnd()->SendMessageToDescendants(WM_NEW_OPEN_DOCUMENT, 0U, (LPARAM)this);
+   AfxGetMainWnd()->SendMessageToDescendants(WM_NEW_OPEN_DOCUMENT, 0U, (LPARAM)this);
    Generate(TRUE);
 
    return TRUE;
@@ -315,7 +314,7 @@ BOOL CMainDocument::OnOpenDocument(LPCTSTR lpszPathName)
    retro::core::Log(strLog.GetString());
 
    // TODO:  Ajoutez ici votre code de création spécialisé
-   ::AfxGetMainWnd()->SendMessageToDescendants(WM_NEW_OPEN_DOCUMENT, 0U, (LPARAM)this);
+   AfxGetMainWnd()->SendMessageToDescendants(WM_NEW_OPEN_DOCUMENT, 0U, (LPARAM)this);
    Generate(TRUE);
 
    return TRUE;

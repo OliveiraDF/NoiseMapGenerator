@@ -146,103 +146,103 @@ BOOL CNoiseMapGeneratorApp::InitInstance()
 
 CString CNoiseMapGeneratorApp::GetVersion() const
 {
-	// TODO: Ajoutez ici votre code d'implémentation..
-	CString strVersion;
+   // TODO: Ajoutez ici votre code d'implémentation..
+   CString strVersion;
 
-	TCHAR lpszFullPath[1024];
-	GetModuleFileName(NULL, lpszFullPath, ARRAYSIZE(lpszFullPath));
+   TCHAR lpszFullPath[1024];
 
-	DWORD uVerHnd = 0;
-	const DWORD dwVerInfoSize = GetFileVersionInfoSize(lpszFullPath, &uVerHnd);
-	if (dwVerInfoSize)
-	{
-		if (uVerHnd != 0)
-		{
-			return strVersion;
-		}
+   GetModuleFileName(NULL, lpszFullPath, ARRAYSIZE(lpszFullPath));
 
-		HGLOBAL hMem = GlobalAlloc(GMEM_MOVEABLE, dwVerInfoSize);
-		if (!hMem)
-		{
-			return strVersion;
-		}
+   DWORD       uVerHnd       = 0;
+   const DWORD dwVerInfoSize = GetFileVersionInfoSize(lpszFullPath, &uVerHnd);
+   if (dwVerInfoSize)
+   {
+      if (uVerHnd != 0)
+      {
+         return strVersion;
+      }
 
-		LPSTR lpszVffInfo = reinterpret_cast<CHAR*>(GlobalLock(hMem));
-		if (!lpszVffInfo)
-		{
-			GlobalFree(hMem);
-			return strVersion;
-		}
+      HGLOBAL hMem = GlobalAlloc(GMEM_MOVEABLE, dwVerInfoSize);
+      if (!hMem)
+      {
+         return strVersion;
+      }
 
-		GetFileVersionInfo(lpszFullPath, uVerHnd, dwVerInfoSize, lpszVffInfo);
+      LPSTR lpszVffInfo = reinterpret_cast <CHAR*>(GlobalLock(hMem));
+      if (!lpszVffInfo)
+      {
+         GlobalFree(hMem);
+         return strVersion;
+      }
 
-		struct LANGANDCODEPAGE
-		{
-			WORD uLanguage;
-			WORD uCodePage;
-		} *pTranslate;
+      GetFileVersionInfo(lpszFullPath, uVerHnd, dwVerInfoSize, lpszVffInfo);
 
-		UINT uTranslate = 0;
+      struct LANGANDCODEPAGE
+      {
+         WORD uLanguage;
+         WORD uCodePage;
+      }* pTranslate;
 
-		BOOL bRet = VerQueryValue(lpszVffInfo,
-			_T("\\VarFileInfo\\Translation"),
-			reinterpret_cast<LPVOID*>(&pTranslate),
-			&uTranslate);
-		if (!bRet)
-		{
-			uTranslate = 0;
-		}
+      UINT uTranslate = 0;
 
-		struct
-		{
-			LPCTSTR lpszSubBlock;
-			LPCTSTR lpszBuffer;
-			UINT nBufferLen;
+      BOOL bRet = VerQueryValue(lpszVffInfo,
+                                _T("\\VarFileInfo\\Translation"),
+                                reinterpret_cast <LPVOID*>(&pTranslate),
+                                &uTranslate);
+      if (!bRet)
+      {
+         uTranslate = 0;
+      }
 
-		} Queries[] =
-		{
-			{ _T("ProductVersion"), NULL, 0 },
-			{ _T("ProductName"), NULL, 0 }
-		};
-		constexpr const UINT uQueryCount = ARRAYSIZE(Queries);
+      struct
+      {
+         LPCTSTR lpszSubBlock;
+         LPCTSTR lpszBuffer;
+         UINT    nBufferLen;
+      } Queries[] =
+      {
+         { _T("ProductVersion"), NULL, 0 },
+         { _T("ProductName"),    NULL, 0 }
+      };
+      constexpr const UINT uQueryCount = ARRAYSIZE(Queries);
 
-		for (UINT i = 0; i < uQueryCount; i++)
-		{
-			for (UINT j = 0; j < (uTranslate / sizeof(LANGANDCODEPAGE)); j++)
-			{
-				CString strSubBlock;
-				strSubBlock.Format(_T("\\StringFileInfo\\%04x%04x\\%s"),
-					pTranslate[j].uLanguage,
-					pTranslate[j].uCodePage,
-					Queries[i].lpszSubBlock);
+      for (UINT i = 0; i < uQueryCount; i++)
+      {
+         for (UINT j = 0; j < (uTranslate / sizeof(LANGANDCODEPAGE)); j++)
+         {
+            CString strSubBlock;
+            strSubBlock.Format(_T("\\StringFileInfo\\%04x%04x\\%s"),
+                               pTranslate[j].uLanguage,
+                               pTranslate[j].uCodePage,
+                               Queries[i].lpszSubBlock);
 
-				bRet = VerQueryValue(reinterpret_cast<LPVOID>(lpszVffInfo),
-					strSubBlock.GetString(),
-					(LPVOID*)&Queries[i].lpszBuffer,
-					&Queries[i].nBufferLen);
-				if (bRet)
-				{
-					break;
-				}
-			}
+            bRet = VerQueryValue(reinterpret_cast <LPVOID>(lpszVffInfo),
+                                 strSubBlock.GetString(),
+                                 (LPVOID*)&Queries[i].lpszBuffer,
+                                 &Queries[i].nBufferLen);
+            if (bRet)
+            {
+               break;
+            }
+         }
 
-			if (!bRet)
-			{
-				Queries[i].lpszBuffer = _T("???");
-			}
-		}
+         if (!bRet)
+         {
+            Queries[i].lpszBuffer = _T("???");
+         }
+      }
 
-		strVersion.Format(_T("%s v%s"), Queries[1].lpszBuffer, Queries[0].lpszBuffer);
+      strVersion.Format(_T("%s v%s"), Queries[1].lpszBuffer, Queries[0].lpszBuffer);
 
-		GlobalUnlock(hMem);
-		GlobalFree(hMem);
-	}
+      GlobalUnlock(hMem);
+      GlobalFree(hMem);
+   }
 
 #ifdef _DEBUG
-	strVersion += _T(" DEBUG");
+   strVersion += _T(" DEBUG");
 #endif
 
-	return strVersion;
+   return strVersion;
 }
 
 // gestionnaires de messages de CNoiseMapGeneratorApp
@@ -273,12 +273,16 @@ protected:
 protected:
 
    DECLARE_MESSAGE_MAP()
+
 public:
-    afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
-    afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-	virtual BOOL OnInitDialog();
+
+   afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+   afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+   virtual BOOL OnInitDialog();
+
 private:
-	CString m_strProduct;
+
+   CString m_strProduct;
 };
 
 CAboutDlg::CAboutDlg() noexcept
@@ -293,8 +297,8 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
-    ON_WM_CTLCOLOR()
-    ON_WM_CREATE()
+ON_WM_CTLCOLOR()
+ON_WM_CREATE()
 END_MESSAGE_MAP()
 
 // Commande App pour exécuter la boîte de dialogue
@@ -330,35 +334,34 @@ void CNoiseMapGeneratorApp::SaveCustomState()
 
 HBRUSH CAboutDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT uCtlColor)
 {
-    // TODO:  Modifier ici les attributs du DC
+   // TODO:  Modifier ici les attributs du DC
 
-    // TODO:  Retourner un autre pinceau si le pinceau par défaut n'est pas souhaité
-	return RetroVisualManager::OnCtlColor(pDC, pWnd, uCtlColor);
+   // TODO:  Retourner un autre pinceau si le pinceau par défaut n'est pas souhaité
+   return RetroVisualManager::OnCtlColor(pDC, pWnd, uCtlColor);
 }
-
 
 int CAboutDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-    if (CDialogEx::OnCreate(lpCreateStruct) == -1)
-    {
-        return -1;
-    }
+   if (CDialogEx::OnCreate(lpCreateStruct) == -1)
+   {
+      return -1;
+   }
 
-    // TODO:  Ajoutez ici votre code de création spécialisé
-	RetroVisualManager::SetWindowDarkAttribute(this);
+   // TODO:  Ajoutez ici votre code de création spécialisé
+   RetroVisualManager::SetWindowDarkAttribute(this);
 
-    return 0;
+   return 0;
 }
 
 BOOL CAboutDlg::OnInitDialog()
 {
-	CDialogEx::OnInitDialog();
+   CDialogEx::OnInitDialog();
 
-	// TODO:  Ajoutez ici une initialisation supplémentaire
-	m_strProduct = theApp.GetVersion();
+   // TODO:  Ajoutez ici une initialisation supplémentaire
+   m_strProduct = theApp.GetVersion();
 
-	UpdateData(FALSE);
+   UpdateData(FALSE);
 
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// EXCEPTION : les pages de propriétés OCX devraient retourner FALSE
+   return TRUE;       // return TRUE unless you set the focus to a control
+   // EXCEPTION : les pages de propriétés OCX devraient retourner FALSE
 }

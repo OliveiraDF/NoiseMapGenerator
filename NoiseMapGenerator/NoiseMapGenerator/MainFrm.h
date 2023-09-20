@@ -87,7 +87,4 @@ public:
    afx_msg void OnViewFullscreen();
    afx_msg void OnUpdateViewFullscreen(CCmdUI* pCmdUI);
 
-protected:
-
-   afx_msg LRESULT OnUpdateProperty(WPARAM wParam, LPARAM lParam);
 };

@@ -68,6 +68,8 @@ private:
 
    CD2DBitmap* m_pBitmap;
    CSize m_szBitmap;
+protected:
+    afx_msg LRESULT OnRecreated2dresources(WPARAM wParam, LPARAM lParam);
 };
 
 #ifndef _DEBUG  // version Debug dans MainTabView.cpp

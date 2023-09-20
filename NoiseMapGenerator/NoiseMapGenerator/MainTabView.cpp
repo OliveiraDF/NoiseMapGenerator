@@ -76,9 +76,9 @@ BOOL CMainTabView::PreCreateWindow(CREATESTRUCT& cs)
 
 // dessin de CMainTabView
 
-void CMainTabView::OnDraw(CDC * /*pDC*/)
+void CMainTabView::OnDraw(CDC* /*pDC*/)
 {
-   CMainDocument *pDoc = GetDocument();
+   CMainDocument* pDoc = GetDocument();
 
    ASSERT_VALID(pDoc);
    if (!pDoc)
@@ -95,7 +95,7 @@ void CMainTabView::OnRButtonUp(UINT /* nFlags */, CPoint point)
    OnContextMenu(this, point);
 }
 
-void CMainTabView::OnContextMenu(CWnd * /* pWnd */, CPoint point)
+void CMainTabView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 {
 #ifndef SHARED_HANDLERS
    theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, point.x, point.y, this, TRUE);
@@ -115,10 +115,10 @@ void CMainTabView::Dump(CDumpContext& dc) const
    CTabView::Dump(dc);
 }
 
-CMainDocument * CMainTabView::GetDocument() const // la version non Debug est inline
+CMainDocument* CMainTabView::GetDocument() const  // la version non Debug est inline
 {
    ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CMainDocument)));
-   return (CMainDocument *)m_pDocument;
+   return (CMainDocument*)m_pDocument;
 }
 
 #endif //_DEBUG
