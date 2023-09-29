@@ -89,8 +89,8 @@ public:
 
 private:
 
-    IWICBitmap* m_pColourMap;
-    IWICBitmap* m_pHeightMap;
+   IWICBitmap* m_pColourMap;
+   IWICBitmap* m_pHeightMap;
    DOUBLE* m_pNoiseMap;
    DOUBLE m_fScale;
    UINT m_uOctaveCount;
@@ -115,7 +115,7 @@ public:
 
 private:
 
-    HRESULT ExportMap(LPCTSTR lpszFileName, IWICBitmap* pMap) const;
+   HRESULT ExportMap(LPCTSTR lpszFileName, IWICBitmap* pMap) const;
    void Clear();
 
 public:

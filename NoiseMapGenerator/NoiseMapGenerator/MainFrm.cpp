@@ -219,45 +219,48 @@ void CMainFrame::OnUpdateViewFullscreen(CCmdUI* pCmdUI)
 
 void CMainFrame::OnFileExportColourMap()
 {
-    // TODO: ajoutez ici le code de votre gestionnaire de commande
-    CString strFullPath;
-    const CMainDocument* pDocument = OnFileExportMap(_T("ColourMap"), strFullPath);
-    if (pDocument)
-    {
-        pDocument->ExportColourMap(strFullPath.GetString());
-    }
+   // TODO: ajoutez ici le code de votre gestionnaire de commande
+   CString strFullPath;
+   const CMainDocument* pDocument = OnFileExportMap(_T("ColourMap"), strFullPath);
+
+   if (pDocument)
+   {
+      pDocument->ExportColourMap(strFullPath.GetString());
+   }
 }
 
 void CMainFrame::OnFileExportHeightMap()
 {
-    // TODO: ajoutez ici le code de votre gestionnaire de commande
-    CString strFullPath;
-    const CMainDocument* pDocument = OnFileExportMap(_T("HeightMap"), strFullPath);
-    if (pDocument)
-    {
-        pDocument->ExportHeightMap(strFullPath.GetString());
-    }
+   // TODO: ajoutez ici le code de votre gestionnaire de commande
+   CString strFullPath;
+   const CMainDocument* pDocument = OnFileExportMap(_T("HeightMap"), strFullPath);
+
+   if (pDocument)
+   {
+      pDocument->ExportHeightMap(strFullPath.GetString());
+   }
 }
 
 const CMainDocument* CMainFrame::OnFileExportMap(LPCTSTR lpszMap, CString& strFullPath)
 {
-    CFileDialog FileDialog(FALSE, _T("png"), lpszMap, 6UL, _T("PNG File (*.png)|*.png|"), this);
+   CFileDialog FileDialog(FALSE, _T("png"), lpszMap, 6UL, _T("PNG File (*.png)|*.png|"), this);
 
-    const INT_PTR nRet = FileDialog.DoModal();
-    if (nRet == IDOK)
-    {
-        const CString strFolderPath = FileDialog.GetFolderPath();
-        const CString strFileName = FileDialog.GetFileName();
+   const INT_PTR nRet = FileDialog.DoModal();
 
-        strFullPath.Format(_T("%s\\%s"), strFolderPath.GetString(), strFileName.GetString());
+   if (nRet == IDOK)
+   {
+      const CString strFolderPath = FileDialog.GetFolderPath();
+      const CString strFileName   = FileDialog.GetFileName();
 
-        ASSERT_KINDOF(CMainDocument, GetActiveDocument());
-        CMainDocument* pDocument = STATIC_DOWNCAST(CMainDocument, GetActiveDocument());
-        ASSERT(pDocument);
-        ASSERT_VALID(pDocument);
+      strFullPath.Format(_T("%s\\%s"), strFolderPath.GetString(), strFileName.GetString());
 
-        return pDocument;
-    }
+      ASSERT_KINDOF(CMainDocument, GetActiveDocument());
+      CMainDocument* pDocument = STATIC_DOWNCAST(CMainDocument, GetActiveDocument());
+      ASSERT(pDocument);
+      ASSERT_VALID(pDocument);
 
-    return NULL;
+      return pDocument;
+   }
+
+   return NULL;
 }

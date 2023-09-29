@@ -47,7 +47,7 @@ public:
 
 private:
 
-    IWICImagingFactory* m_pWICFactory;
+   IWICImagingFactory* m_pWICFactory;
 
 
 // Substitutions

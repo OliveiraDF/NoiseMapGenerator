@@ -34,12 +34,10 @@ IMPLEMENT_DYNAMIC(CConfigurationPane, CDockablePane)
 
 CConfigurationPane::CConfigurationPane()
 {
-
 }
 
 CConfigurationPane::~CConfigurationPane()
 {
-
 }
 
 BEGIN_MESSAGE_MAP(CConfigurationPane, CDockablePane)

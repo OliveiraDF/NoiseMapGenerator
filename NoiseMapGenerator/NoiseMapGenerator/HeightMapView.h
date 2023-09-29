@@ -36,18 +36,18 @@ class CHeightMapView : public CMapView
 
 protected:
 
-   CHeightMapView();              
+   CHeightMapView();
    virtual ~CHeightMapView();
 
 public:
 
-	LPCVOID GetMap() const override;
+   LPCVOID GetMap() const override;
 
 protected:
-
 
    DECLARE_MESSAGE_MAP()
 
 public:
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+
+   afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 };

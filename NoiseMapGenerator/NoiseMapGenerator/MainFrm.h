@@ -67,7 +67,7 @@ public:
 
 private:
 
-	const CMainDocument* OnFileExportMap(LPCTSTR lpszMap, CString& strFullPath);
+   const CMainDocument* OnFileExportMap(LPCTSTR lpszMap, CString& strFullPath);
 
 protected:
 
@@ -94,5 +94,4 @@ public:
    afx_msg void OnUpdateViewFullscreen(CCmdUI* pCmdUI);
    afx_msg void OnFileExportColourMap();
    afx_msg void OnFileExportHeightMap();
-
 };

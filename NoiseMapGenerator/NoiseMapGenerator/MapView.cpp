@@ -35,153 +35,151 @@
 IMPLEMENT_DYNCREATE(CMapView, retro::gl::CRenderView)
 
 CMapView::CMapView()
-	: m_uTextureID(0)
+   : m_uTextureID(0)
 {
-
 }
 
 CMapView::~CMapView()
 {
-
 }
 
 #pragma endregion
 
 BEGIN_MESSAGE_MAP(CMapView, retro::gl::CRenderView)
-	ON_WM_CREATE()
+ON_WM_CREATE()
 END_MESSAGE_MAP()
 
 void CMapView::OnInitialUpdate()
 {
-	const CMainDocument* pDoc = GetDocument();
-	const FLOAT fWidth = pDoc->GetWidth();
-	const FLOAT fHeight = pDoc->GetHeight();
-	LPCVOID pMap = GetMap();
+   const CMainDocument* pDoc    = GetDocument();
+   const FLOAT          fWidth  = pDoc->GetWidth();
+   const FLOAT          fHeight = pDoc->GetHeight();
+   LPCVOID pMap = GetMap();
 
-	MakeCurrent(GetDC());
+   MakeCurrent(GetDC());
 
-	if (m_uTextureID)
-	{
-		DeleteTextures(1, &m_uTextureID);
-	}
+   if (m_uTextureID)
+   {
+      DeleteTextures(1, &m_uTextureID);
+   }
 
-	GenTextures(1, &m_uTextureID);
-	BindTexture(retro::gl::ETextureType_2D, m_uTextureID);
-	TexImage2D(0, 4, { (INT)fWidth, (INT)fHeight }, 0, retro::gl::EFormatType_RGBA, retro::gl::EDataType_Unsigned_Byte, pMap);
-	TexParameteri(retro::gl::ETextureType_2D, retro::gl::ETextureParameter_Min_Filter, 0x2600);
-	TexParameteri(retro::gl::ETextureType_2D, retro::gl::ETextureParameter_Wrap_S, 0x2900);
-	TexParameteri(retro::gl::ETextureType_2D, retro::gl::ETextureParameter_Wrap_T, 0x2900);
-	TexParameteri(retro::gl::ETextureType_2D, retro::gl::ETextureParameter_Mag_Filter, 0x2600);
+   GenTextures(1, &m_uTextureID);
+   BindTexture(retro::gl::ETextureType_2D, m_uTextureID);
+   TexImage2D(0, 4, { (INT)fWidth, (INT)fHeight }, 0, retro::gl::EFormatType_RGBA, retro::gl::EDataType_Unsigned_Byte, pMap);
+   TexParameteri(retro::gl::ETextureType_2D, retro::gl::ETextureParameter_Min_Filter, 0x2600);
+   TexParameteri(retro::gl::ETextureType_2D, retro::gl::ETextureParameter_Wrap_S, 0x2900);
+   TexParameteri(retro::gl::ETextureType_2D, retro::gl::ETextureParameter_Wrap_T, 0x2900);
+   TexParameteri(retro::gl::ETextureType_2D, retro::gl::ETextureParameter_Mag_Filter, 0x2600);
 
-	NewList(10, retro::gl::ECompilationMode_Compile);
-	Begin(retro::gl::EPrimitiveType_Quads);
-	TexCoord2({ 0.f, 0.f }); Vertex2({ 0.f, 0.f });
-	TexCoord2({ 1.f, 0.f }); Vertex2({ fWidth, 0.f });
-	TexCoord2({ 1.f, 1.f }); Vertex2({ fWidth, fHeight });
-	TexCoord2({ 0.f, 1.f }); Vertex2({ 0.f, fHeight });
-	End();
-	EndList();
+   NewList(10, retro::gl::ECompilationMode_Compile);
+   Begin(retro::gl::EPrimitiveType_Quads);
+   TexCoord2({ 0.f, 0.f }); Vertex2({ 0.f, 0.f });
+   TexCoord2({ 1.f, 0.f }); Vertex2({ fWidth, 0.f });
+   TexCoord2({ 1.f, 1.f }); Vertex2({ fWidth, fHeight });
+   TexCoord2({ 0.f, 1.f }); Vertex2({ 0.f, fHeight });
+   End();
+   EndList();
 
-	UnmakeCurrent();
+   UnmakeCurrent();
 
-	retro::gl::CRenderView::OnInitialUpdate();
+   retro::gl::CRenderView::OnInitialUpdate();
 }
 
 void CMapView::OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint)
 {
-	UNREFERENCED_PARAMETER(pSender);
-	UNREFERENCED_PARAMETER(lHint);
-	UNREFERENCED_PARAMETER(pHint);
+   UNREFERENCED_PARAMETER(pSender);
+   UNREFERENCED_PARAMETER(lHint);
+   UNREFERENCED_PARAMETER(pHint);
 
-	const CMainDocument* pDoc = GetDocument();
-	const LONG nWidth = pDoc->GetWidth();
-	const LONG nHeight = pDoc->GetHeight();
-	LPCVOID pMap = GetMap();
+   const CMainDocument* pDoc    = GetDocument();
+   const LONG           nWidth  = pDoc->GetWidth();
+   const LONG           nHeight = pDoc->GetHeight();
+   LPCVOID pMap = GetMap();
 
-	MakeCurrent(GetDC());
+   MakeCurrent(GetDC());
 
-	BindTexture(retro::gl::ETextureType_2D, m_uTextureID);
-	TexSubImage2D(0, { 0, 0 }, { nWidth, nHeight }, retro::gl::EFormatType_RGBA, retro::gl::EDataType_Unsigned_Byte, pMap);
+   BindTexture(retro::gl::ETextureType_2D, m_uTextureID);
+   TexSubImage2D(0, { 0, 0 }, { nWidth, nHeight }, retro::gl::EFormatType_RGBA, retro::gl::EDataType_Unsigned_Byte, pMap);
 
-	UnmakeCurrent();
+   UnmakeCurrent();
 
-	Invalidate();
+   Invalidate();
 }
 
 void CMapView::OnDraw(CDC* pDC)
 {
-	// TODO: ajoutez ici le code de dessin
-	ASSERT(pDC);
-	ASSERT_VALID(pDC);
+   // TODO: ajoutez ici le code de dessin
+   ASSERT(pDC);
+   ASSERT_VALID(pDC);
 
-	CRect rcWnd;
-	GetClientRect(rcWnd);
+   CRect rcWnd;
+   GetClientRect(rcWnd);
 
-	const CMainDocument* pDoc = GetDocument();
-	const FLOAT fWidth = pDoc->GetWidth();
-	const FLOAT fHeight = pDoc->GetHeight();
-	const FLOAT fCenterX = (rcWnd.Width() / 2) - (fWidth / 2);
-	const FLOAT fCenterY = (rcWnd.Height() / 2) - (fHeight / 2);
+   const CMainDocument* pDoc     = GetDocument();
+   const FLOAT          fWidth   = pDoc->GetWidth();
+   const FLOAT          fHeight  = pDoc->GetHeight();
+   const FLOAT          fCenterX = (rcWnd.Width() / 2) - (fWidth / 2);
+   const FLOAT          fCenterY = (rcWnd.Height() / 2) - (fHeight / 2);
 
-	MakeCurrent(pDC);
+   MakeCurrent(pDC);
 
-	ClearColor({ 32, 32, 32 });
-	Clear();
+   ClearColor({ 32, 32, 32 });
+   Clear();
 
-	Viewport({ rcWnd });
+   Viewport({ rcWnd });
 
-	MatrixMode(retro::gl::EMatrixMode_Projection);
-	LoadIdentity();
-	Ortho({ rcWnd }, 1., -1.);
+   MatrixMode(retro::gl::EMatrixMode_Projection);
+   LoadIdentity();
+   Ortho({ rcWnd }, 1., -1.);
 
-	MatrixMode(retro::gl::EMatrixMode_ModelView);
-	LoadIdentity();
+   MatrixMode(retro::gl::EMatrixMode_ModelView);
+   LoadIdentity();
 
-	Translate(fCenterX, fCenterY, 0.f);
+   Translate(fCenterX, fCenterY, 0.f);
 
-	BindTexture(retro::gl::ETextureType_2D, m_uTextureID);
+   BindTexture(retro::gl::ETextureType_2D, m_uTextureID);
 
-	CallList(10);
+   CallList(10);
 
-	Flush();
-	::SwapBuffers(pDC->GetSafeHdc());
+   Flush();
+   ::SwapBuffers(pDC->GetSafeHdc());
 
-	UnmakeCurrent();
+   UnmakeCurrent();
 }
 
 LPCVOID CMapView::GetMap() const
 {
-	ASSERT(FALSE);
-	return NULL;
+   ASSERT(FALSE);
+   return NULL;
 }
 
 #ifdef _DEBUG
 
 CMainDocument* CMapView::GetDocument() const
 {
-	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CMainDocument)));
-	return (CMainDocument*)m_pDocument;
+   ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CMainDocument)));
+   return (CMainDocument*)m_pDocument;
 }
 
 #endif
 
 int CMapView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-	if (retro::gl::CRenderView::OnCreate(lpCreateStruct) == -1)
-	{
-		return -1;
-	}
+   if (retro::gl::CRenderView::OnCreate(lpCreateStruct) == -1)
+   {
+      return -1;
+   }
 
-	// TODO:  Ajoutez ici votre code de création spécialisé
-	MakeCurrent(GetDC());
+   // TODO:  Ajoutez ici votre code de création spécialisé
+   MakeCurrent(GetDC());
 
-	Disable(retro::gl::EFeatureType_Cull_Face);
-	Disable(retro::gl::EFeatureType_Lightning);
-	Disable(retro::gl::EFeatureType_Depth_Test);
-	Disable(retro::gl::EFeatureType_Alpha_Test);
-	Enable(retro::gl::EFeatureType_Texture_2D);
+   Disable(retro::gl::EFeatureType_Cull_Face);
+   Disable(retro::gl::EFeatureType_Lightning);
+   Disable(retro::gl::EFeatureType_Depth_Test);
+   Disable(retro::gl::EFeatureType_Alpha_Test);
+   Enable(retro::gl::EFeatureType_Texture_2D);
 
-	UnmakeCurrent();
+   UnmakeCurrent();
 
-	return 0;
+   return 0;
 }

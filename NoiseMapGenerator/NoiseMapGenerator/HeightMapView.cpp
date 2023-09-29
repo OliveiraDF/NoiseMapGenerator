@@ -41,34 +41,34 @@ CHeightMapView::~CHeightMapView()
 }
 
 BEGIN_MESSAGE_MAP(CHeightMapView, CView)
-	ON_WM_CREATE()
+ON_WM_CREATE()
 END_MESSAGE_MAP()
 
 LPCVOID CHeightMapView::GetMap() const
 {
-	CMainDocument* pDoc = GetDocument();
+   CMainDocument* pDoc = GetDocument();
 
-	IWICBitmap* pBitmap = pDoc->GetHeightMap();
+   IWICBitmap* pBitmap = pDoc->GetHeightMap();
 
-	IWICBitmapLock* pLock = NULL;
-	pBitmap->Lock(NULL, WICBitmapLockRead, &pLock);
+   IWICBitmapLock* pLock = NULL;
 
-	UINT uBufferSize = 0;
-	WICInProcPointer pPixels = NULL;
-	pLock->GetDataPointer(&uBufferSize, &pPixels);
+   pBitmap->Lock(NULL, WICBitmapLockRead, &pLock);
 
-	return pPixels;
+   UINT             uBufferSize = 0;
+   WICInProcPointer pPixels     = NULL;
+   pLock->GetDataPointer(&uBufferSize, &pPixels);
+
+   return pPixels;
 }
-
 
 int CHeightMapView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-	if (CMapView::OnCreate(lpCreateStruct) == -1)
-	{
-		return -1;
-	}
+   if (CMapView::OnCreate(lpCreateStruct) == -1)
+   {
+      return -1;
+   }
 
-	// TODO:  Ajoutez ici votre code de création spécialisé
+   // TODO:  Ajoutez ici votre code de création spécialisé
 
-	return 0;
+   return 0;
 }

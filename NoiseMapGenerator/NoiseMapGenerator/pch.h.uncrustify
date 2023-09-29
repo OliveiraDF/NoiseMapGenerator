@@ -26,30 +26,30 @@
  *
  */
 
-#pragma once
+// pch.h : Il s'agit d'un fichier d'en-tête précompilé.
+// Les fichiers listés ci-dessous sont compilés une seule fois, ce qui améliore les performances de génération des futures builds.
+// Cela affecte également les performances d'IntelliSense, notamment la complétion du code et de nombreuses fonctionnalités de navigation du code.
+// Toutefois, les fichiers listés ici sont TOUS recompilés si l'un d'entre eux est mis à jour entre les builds.
+// N'ajoutez pas de fichiers fréquemment mis à jour ici, car cela annule les gains de performance.
 
-#include "MapView.h"
+#ifndef PCH_H
+#define PCH_H
 
-class CColourMapView : public CMapView
-{
-   #pragma region Constructors
+// ajouter les en-têtes à précompiler ici
+#include "framework.h"
 
-   DECLARE_DYNCREATE(CColourMapView)
+#include <propkey.h>
+#include <dwmapi.h>
 
-protected:
+#ifdef _DEBUG
+#define MAKE_DUMP(x)    ::AfxDump(x)
+#else
+#define MAKE_DUMP(x)
+#endif
 
-   CColourMapView();
-   virtual ~CColourMapView();
+#include <RetroCode/MFC.h>
+#include <RetroCode/GL.h>
 
-   #pragma endregion
+#define WM_NEW_OPEN_DOCUMENT    WM_APP + 1
 
-   LPCVOID GetMap() const override;
-
-protected:
-
-   DECLARE_MESSAGE_MAP()
-
-public:
-
-   afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-};
+#endif //PCH_H

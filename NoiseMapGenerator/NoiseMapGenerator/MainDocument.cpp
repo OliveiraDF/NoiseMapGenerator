@@ -120,18 +120,18 @@ HRESULT CMainDocument::Generate(BOOL bRealloc)
    // TODO: Ajoutez ici votre code d'implémentation..
    static const struct
    {
-      LPCTSTR                   lpszName;
-      DOUBLE                    fHeight;
-      retro::core::TColorRGBA   clrColour;
+      LPCTSTR                 lpszName;
+      DOUBLE                  fHeight;
+      retro::core::TColorRGBA clrColour;
    } s_Regions[] =
    {
-      { _T("DeepWater"),     0.3, retro::core::TColorRGBA(46,   0,  108) },
-      { _T("ShallowWater"),  0.4, retro::core::TColorRGBA(38,  97,  156) },
+      { _T("DeepWater"),     0.3, retro::core::TColorRGBA(46,    0, 108) },
+      { _T("ShallowWater"),  0.4, retro::core::TColorRGBA(38,   97, 156) },
       { _T("Sand"),         0.45, retro::core::TColorRGBA(224, 205, 169) },
       { _T("Grass1"),       0.55, retro::core::TColorRGBA(34,  120,  15) },
       { _T("Grass2"),        0.6, retro::core::TColorRGBA(23,   87,  50) },
-      { _T("Rock1"),         0.7, retro::core::TColorRGBA(149,   86, 40) },
-      { _T("Rock2"),         0.9, retro::core::TColorRGBA(88,    41,  0) },
+      { _T("Rock1"),         0.7, retro::core::TColorRGBA(149,  86,  40) },
+      { _T("Rock2"),         0.9, retro::core::TColorRGBA(88,   41,   0) },
       { _T("Snow"),           1., retro::core::TColorRGBA(255, 255, 255) }
    };
    static constexpr const UINT s_uRegionCount = ARRAYSIZE(s_Regions);
@@ -163,13 +163,13 @@ HRESULT CMainDocument::Generate(BOOL bRealloc)
    m_pColourMap->Lock(NULL, WICBitmapLockWrite, &pColourLock);
    WICInProcPointer pColourBuffer = NULL;
    pColourLock->GetDataPointer(&uBufferSize, &pColourBuffer);
-   retro::core::TColorRGBA* pColourPixels = reinterpret_cast<retro::core::TColorRGBA*>(pColourBuffer);
+   retro::core::TColorRGBA* pColourPixels = reinterpret_cast <retro::core::TColorRGBA*>(pColourBuffer);
 
    IWICBitmapLock* pHeightLock = NULL;
    m_pHeightMap->Lock(NULL, WICBitmapLockWrite, &pHeightLock);
    WICInProcPointer pHeightBuffer = NULL;
    pHeightLock->GetDataPointer(&uBufferSize, &pHeightBuffer);
-   retro::core::TColorRGBA* pHeightPixels = reinterpret_cast<retro::core::TColorRGBA*>(pHeightBuffer);
+   retro::core::TColorRGBA* pHeightPixels = reinterpret_cast <retro::core::TColorRGBA*>(pHeightBuffer);
 
    for (UINT i = 0; i < uSize; i++)
    {
@@ -180,7 +180,7 @@ HRESULT CMainDocument::Generate(BOOL bRealloc)
       {
          if (fCurrentHeight <= s_Regions[j].fHeight)
          {
-             pColourPixels[i] = s_Regions[j].clrColour;
+            pColourPixels[i] = s_Regions[j].clrColour;
             break;
          }
       }
@@ -282,121 +282,120 @@ UINT CMainDocument::GetOctaveCount() const
 
 IWICBitmap* CMainDocument::GetColourMap() const
 {
-    return m_pColourMap;
+   return m_pColourMap;
 }
 
 IWICBitmap* CMainDocument::GetHeightMap() const
 {
-    return m_pHeightMap;
+   return m_pHeightMap;
 }
 
 HRESULT CMainDocument::ExportColourMap(LPCTSTR lpszFileName) const
 {
-    return ExportMap(lpszFileName, m_pColourMap);
+   return ExportMap(lpszFileName, m_pColourMap);
 }
 
 HRESULT CMainDocument::ExportHeightMap(LPCTSTR lpszFileName) const
 {
-    return ExportMap(lpszFileName, m_pHeightMap);
+   return ExportMap(lpszFileName, m_pHeightMap);
 }
 
 HRESULT CMainDocument::ExportMap(LPCTSTR lpszFileName, IWICBitmap* pMap) const
 {
-    ASSERT(lpszFileName);
-    ASSERT(pMap);
+   ASSERT(lpszFileName);
+   ASSERT(pMap);
 
-    IWICImagingFactory* pFactory = theApp.GetWICFactory();
-    ASSERT(pFactory);
+   IWICImagingFactory* pFactory = theApp.GetWICFactory();
+   ASSERT(pFactory);
 
-	HRESULT hr = S_OK;
-	IWICStream* pStream = NULL;
-	IWICBitmapEncoder* pEncoder = NULL;
-	IWICBitmapFrameEncode* pFrame = NULL;
-	IPropertyBag2* pPropertyBag = NULL;
+   HRESULT                hr           = S_OK;
+   IWICStream*            pStream      = NULL;
+   IWICBitmapEncoder*     pEncoder     = NULL;
+   IWICBitmapFrameEncode* pFrame       = NULL;
+   IPropertyBag2*         pPropertyBag = NULL;
 
-	do
-	{
-		hr = pFactory->CreateStream(&pStream);
-		if (FAILED(hr))
-		{
-			break;
-		}
+   do
+   {
+      hr = pFactory->CreateStream(&pStream);
+      if (FAILED(hr))
+      {
+         break;
+      }
 
-		hr = pStream->InitializeFromFilename(lpszFileName, GENERIC_WRITE);
-		if (FAILED(hr))
-		{
-			break;
-		}
+      hr = pStream->InitializeFromFilename(lpszFileName, GENERIC_WRITE);
+      if (FAILED(hr))
+      {
+         break;
+      }
 
-		hr = pFactory->CreateEncoder(GUID_ContainerFormatPng, NULL, &pEncoder);
-		if (FAILED(hr))
-		{
-			break;
-		}
+      hr = pFactory->CreateEncoder(GUID_ContainerFormatPng, NULL, &pEncoder);
+      if (FAILED(hr))
+      {
+         break;
+      }
 
-		hr = pEncoder->Initialize(pStream, WICBitmapEncoderNoCache);
-		if (FAILED(hr))
-		{
-			break;
-		}
+      hr = pEncoder->Initialize(pStream, WICBitmapEncoderNoCache);
+      if (FAILED(hr))
+      {
+         break;
+      }
 
-		hr = pEncoder->CreateNewFrame(&pFrame, &pPropertyBag);
-		if (FAILED(hr))
-		{
-			break;
-		}
+      hr = pEncoder->CreateNewFrame(&pFrame, &pPropertyBag);
+      if (FAILED(hr))
+      {
+         break;
+      }
 
-		hr = pFrame->Initialize(pPropertyBag);
-		if (FAILED(hr))
-		{
-			break;
-		}
+      hr = pFrame->Initialize(pPropertyBag);
+      if (FAILED(hr))
+      {
+         break;
+      }
 
-		hr = pFrame->WriteSource(pMap, NULL);
-		if (FAILED(hr))
-		{
-			break;
-		}
+      hr = pFrame->WriteSource(pMap, NULL);
+      if (FAILED(hr))
+      {
+         break;
+      }
 
-		hr = pFrame->Commit();
-		if (FAILED(hr))
-		{
-			break;
-		}
+      hr = pFrame->Commit();
+      if (FAILED(hr))
+      {
+         break;
+      }
 
-		hr = pEncoder->Commit();
-		if (FAILED(hr))
-		{
-			break;
-		}
+      hr = pEncoder->Commit();
+      if (FAILED(hr))
+      {
+         break;
+      }
+   } while (RETRO_NULL_WHILE_LOOP_CONDITION);
 
-	} while (RETRO_NULL_WHILE_LOOP_CONDITION);
+   if (pPropertyBag)
+   {
+      pPropertyBag->Release();
+      pPropertyBag = NULL;
+   }
 
-	if (pPropertyBag)
-	{
-		pPropertyBag->Release();
-		pPropertyBag = NULL;
-	}
+   if (pFrame)
+   {
+      pFrame->Release();
+      pFrame = NULL;
+   }
 
-	if (pFrame)
-	{
-		pFrame->Release();
-		pFrame = NULL;
-	}
+   if (pEncoder)
+   {
+      pEncoder->Release();
+      pEncoder = NULL;
+   }
 
-	if (pEncoder)
-	{
-		pEncoder->Release();
-		pEncoder = NULL;
-	}
+   if (pStream)
+   {
+      pStream->Release();
+      pStream = NULL;
+   }
 
-	if (pStream)
-	{
-		pStream->Release();
-		pStream = NULL;
-	}
-
-    return hr;
+   return hr;
 }
 
 void CMainDocument::Clear()
@@ -410,13 +409,13 @@ void CMainDocument::Clear()
 
    if (m_pColourMap)
    {
-       m_pColourMap->Release();
+      m_pColourMap->Release();
       m_pColourMap = NULL;
    }
 
    if (m_pHeightMap)
    {
-       m_pHeightMap->Release();
+      m_pHeightMap->Release();
       m_pHeightMap = NULL;
    }
 }
