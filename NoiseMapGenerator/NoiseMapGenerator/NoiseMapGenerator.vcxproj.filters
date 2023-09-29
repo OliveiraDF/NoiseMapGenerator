@@ -75,6 +75,9 @@
     <ClInclude Include="ConfigurationPropCtrl.h">
       <Filter>Fichiers d%27en-tête\Controls</Filter>
     </ClInclude>
+    <ClInclude Include="MapView.h">
+      <Filter>Fichiers d%27en-tête\Views</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NoiseMapGenerator.cpp">
@@ -103,6 +106,9 @@
     </ClCompile>
     <ClCompile Include="ConfigurationPropCtrl.cpp">
       <Filter>Fichiers sources\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="MapView.cpp">
+      <Filter>Fichiers sources\Views</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

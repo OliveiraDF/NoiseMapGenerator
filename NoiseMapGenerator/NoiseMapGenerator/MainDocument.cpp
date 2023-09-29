@@ -29,6 +29,7 @@
 #include "pch.h"
 #include "MainDocument.h"
 #include "resource.h"
+#include "NoiseMapGenerator.h"
 
 #ifdef _DEBUG
 #define new    DEBUG_NEW
@@ -119,19 +120,19 @@ HRESULT CMainDocument::Generate(BOOL bRealloc)
    // TODO: Ajoutez ici votre code d'implémentation..
    static const struct
    {
-      LPCTSTR  lpszName;
-      DOUBLE   fHeight;
-      COLORREF clrColour;
+      LPCTSTR                   lpszName;
+      DOUBLE                    fHeight;
+      retro::core::TColorRGBA   clrColour;
    } s_Regions[] =
    {
-      { _T("DeepWater"),     0.3, RGB(108,   0,  46) },
-      { _T("ShallowWater"),  0.4, RGB(156,  97,  38) },
-      { _T("Sand"),         0.45, RGB(169, 205, 224) },
-      { _T("Grass1"),       0.55, RGB(15,  120,  34) },
-      { _T("Grass2"),        0.6, RGB(50,   87,  23) },
-      { _T("Rock1"),         0.7, RGB(40,   86, 149) },
-      { _T("Rock2"),         0.9, RGB(0,    41,  88) },
-      { _T("Snow"),           1., RGB(255, 255, 255) }
+      { _T("DeepWater"),     0.3, retro::core::TColorRGBA(46,   0,  108) },
+      { _T("ShallowWater"),  0.4, retro::core::TColorRGBA(38,  97,  156) },
+      { _T("Sand"),         0.45, retro::core::TColorRGBA(224, 205, 169) },
+      { _T("Grass1"),       0.55, retro::core::TColorRGBA(34,  120,  15) },
+      { _T("Grass2"),        0.6, retro::core::TColorRGBA(23,   87,  50) },
+      { _T("Rock1"),         0.7, retro::core::TColorRGBA(149,   86, 40) },
+      { _T("Rock2"),         0.9, retro::core::TColorRGBA(88,    41,  0) },
+      { _T("Snow"),           1., retro::core::TColorRGBA(255, 255, 255) }
    };
    static constexpr const UINT s_uRegionCount = ARRAYSIZE(s_Regions);
 
@@ -147,35 +148,46 @@ HRESULT CMainDocument::Generate(BOOL bRealloc)
          return E_OUTOFMEMORY;
       }
 
-      m_pColourMap = new COLORREF[uSize];
-      if (!m_pColourMap)
-      {
-         return E_OUTOFMEMORY;
-      }
+      IWICImagingFactory* pFactory = theApp.GetWICFactory();
+      ASSERT(pFactory);
 
-      m_pHeightMap = new COLORREF[uSize];
-      if (!m_pHeightMap)
-      {
-         return E_OUTOFMEMORY;
-      }
+      pFactory->CreateBitmap(GetWidth(), GetHeight(), GUID_WICPixelFormat32bppRGBA, WICBitmapCacheOnDemand, &m_pColourMap);
+      pFactory->CreateBitmap(GetWidth(), GetHeight(), GUID_WICPixelFormat32bppRGBA, WICBitmapCacheOnDemand, &m_pHeightMap);
    }
 
    retro::core::NoiseMap(m_pNoiseMap, m_szMap.cx, m_szMap.cy, m_fScale, m_uOctaveCount, m_fPersistance, m_fLacunarity);
+
+   UINT uBufferSize = 0;
+
+   IWICBitmapLock* pColourLock = NULL;
+   m_pColourMap->Lock(NULL, WICBitmapLockWrite, &pColourLock);
+   WICInProcPointer pColourBuffer = NULL;
+   pColourLock->GetDataPointer(&uBufferSize, &pColourBuffer);
+   retro::core::TColorRGBA* pColourPixels = reinterpret_cast<retro::core::TColorRGBA*>(pColourBuffer);
+
+   IWICBitmapLock* pHeightLock = NULL;
+   m_pHeightMap->Lock(NULL, WICBitmapLockWrite, &pHeightLock);
+   WICInProcPointer pHeightBuffer = NULL;
+   pHeightLock->GetDataPointer(&uBufferSize, &pHeightBuffer);
+   retro::core::TColorRGBA* pHeightPixels = reinterpret_cast<retro::core::TColorRGBA*>(pHeightBuffer);
 
    for (UINT i = 0; i < uSize; i++)
    {
       const DOUBLE fCurrentHeight = m_pNoiseMap[i];
       const BYTE   uNG            = static_cast <BYTE>(retro::core::Lerp(0., 255., fCurrentHeight));
-      m_pHeightMap[i] = RGB(uNG, uNG, uNG);
+      pHeightPixels[i] = retro::core::TColorRGBA(uNG, uNG, uNG);
       for (UINT j = 0; j < s_uRegionCount; j++)
       {
          if (fCurrentHeight <= s_Regions[j].fHeight)
          {
-            m_pColourMap[i] = s_Regions[j].clrColour;
+             pColourPixels[i] = s_Regions[j].clrColour;
             break;
          }
       }
    }
+
+   pColourLock->Release();
+   pHeightLock->Release();
 
    retro::core::Log(I18N(IDS_LOG_GENERATE_SUCCESS));
 
@@ -268,17 +280,16 @@ UINT CMainDocument::GetOctaveCount() const
    return m_uOctaveCount;
 }
 
-const COLORREF* CMainDocument::GetColourMap() const
+IWICBitmap* CMainDocument::GetColourMap() const
 {
-   // TODO: Ajoutez ici votre code d'implémentation..
-   return m_pColourMap;
+    return m_pColourMap;
 }
 
-const COLORREF* CMainDocument::GetHeightMap() const
+IWICBitmap* CMainDocument::GetHeightMap() const
 {
-   // TODO: Ajoutez ici votre code d'implémentation..
-   return m_pHeightMap;
+    return m_pHeightMap;
 }
+
 
 void CMainDocument::Clear()
 {
@@ -291,13 +302,13 @@ void CMainDocument::Clear()
 
    if (m_pColourMap)
    {
-      delete[] m_pColourMap;
+       m_pColourMap->Release();
       m_pColourMap = NULL;
    }
 
    if (m_pHeightMap)
    {
-      delete[] m_pHeightMap;
+       m_pHeightMap->Release();
       m_pHeightMap = NULL;
    }
 }

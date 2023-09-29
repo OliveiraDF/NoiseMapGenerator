@@ -26,49 +26,47 @@
  *
  */
 
-#include "pch.h"
-#include "HeightMapView.h"
-#include "MainDocument.h"
+#pragma once
 
-IMPLEMENT_DYNCREATE(CHeightMapView, CView)
+class CMainDocument;
 
-CHeightMapView::CHeightMapView()
+class CMapView : public retro::gl::CRenderView
 {
+#pragma region Constructors
+
+	DECLARE_DYNCREATE(CMapView)
+
+protected:
+
+	CMapView();
+	virtual ~CMapView();
+
+#pragma endregion
+
+private:
+
+	UINT m_uTextureID;
+
+public:
+
+	CMainDocument* GetDocument() const;
+	void OnInitialUpdate() override;
+	void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint) override;
+	void OnDraw(CDC* pDC) override;
+	virtual LPCVOID GetMap() const;
+
+protected:
+
+	DECLARE_MESSAGE_MAP()
+
+public:
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+};
+
+#ifndef _DEBUG  
+inline CMainDocument* CColourMapView::GetDocument() const
+{
+	return reinterpret_cast <CMainDocument*>(m_pDocument);
 }
 
-CHeightMapView::~CHeightMapView()
-{
-}
-
-BEGIN_MESSAGE_MAP(CHeightMapView, CView)
-	ON_WM_CREATE()
-END_MESSAGE_MAP()
-
-LPCVOID CHeightMapView::GetMap() const
-{
-	CMainDocument* pDoc = GetDocument();
-
-	IWICBitmap* pBitmap = pDoc->GetHeightMap();
-
-	IWICBitmapLock* pLock = NULL;
-	pBitmap->Lock(NULL, WICBitmapLockRead, &pLock);
-
-	UINT uBufferSize = 0;
-	WICInProcPointer pPixels = NULL;
-	pLock->GetDataPointer(&uBufferSize, &pPixels);
-
-	return pPixels;
-}
-
-
-int CHeightMapView::OnCreate(LPCREATESTRUCT lpCreateStruct)
-{
-	if (CMapView::OnCreate(lpCreateStruct) == -1)
-	{
-		return -1;
-	}
-
-	// TODO:  Ajoutez ici votre code de création spécialisé
-
-	return 0;
-}
+#endif

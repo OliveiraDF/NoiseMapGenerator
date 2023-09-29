@@ -48,6 +48,7 @@
 #endif
 
 #include <RetroCode/MFC.h>
+#include <RetroCode/GL.h>
 
 #define WM_NEW_OPEN_DOCUMENT    WM_APP + 1
 

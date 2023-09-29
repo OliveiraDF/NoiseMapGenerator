@@ -54,6 +54,7 @@ END_MESSAGE_MAP()
 // Construction de CNoiseMapGeneratorApp
 
 CNoiseMapGeneratorApp::CNoiseMapGeneratorApp() noexcept
+    : m_pWICFactory(NULL)
 {
    m_bHiColorIcons = TRUE;
 
@@ -126,6 +127,20 @@ BOOL CNoiseMapGeneratorApp::InitInstance()
    EnableShellOpen();
    RegisterShellFileTypes(TRUE);
 
+#ifndef __WINRT__
+   HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
+   if (hr == RPC_E_CHANGED_MODE)
+   {
+       hr = CoInitializeEx(NULL, COINIT_MULTITHREADED);
+       UNREFERENCED_PARAMETER(hr);
+   }
+#endif
+
+   hr = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&m_pWICFactory));
+   if (FAILED(hr))
+   {
+       return FALSE;
+   }
 
    // Commandes de dispatch spécifiées sur la ligne de commande.  Retournent FALSE si
    // l'application a été lancée avec /RegServer, /Register, /Unregserver ou /Unregister.
@@ -142,6 +157,26 @@ BOOL CNoiseMapGeneratorApp::InitInstance()
    // Activer les ouvertures via glisser-déplacer
    m_pMainWnd->DragAcceptFiles();
    return TRUE;
+}
+
+BOOL CNoiseMapGeneratorApp::ExitInstance()
+{
+    if (m_pWICFactory)
+    {
+        m_pWICFactory->Release();
+        m_pWICFactory = NULL;
+    }
+
+#ifndef __WINRT__
+    CoUninitialize();
+#endif
+
+    return TRUE;
+}
+
+IWICImagingFactory* CNoiseMapGeneratorApp::GetWICFactory() const
+{
+    return m_pWICFactory;
 }
 
 CString CNoiseMapGeneratorApp::GetVersion() const

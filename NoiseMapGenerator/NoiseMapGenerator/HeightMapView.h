@@ -28,54 +28,26 @@
 
 #pragma once
 
-class CMainDocument;
+#include "MapView.h"
 
-class CHeightMapView : public CView
+class CHeightMapView : public CMapView
 {
    DECLARE_DYNCREATE(CHeightMapView)
 
 protected:
 
-   CHeightMapView();                // constructeur protégé utilisé par la création dynamique
+   CHeightMapView();              
    virtual ~CHeightMapView();
 
 public:
 
-   CMainDocument* GetDocument() const;
-   virtual void OnDraw(CDC* pDC);            // substitué pour dessiner cette vue
-
-#ifdef _DEBUG
-   virtual void AssertValid() const;
-
-#ifndef _WIN32_WCE
-   virtual void Dump(CDumpContext& dc) const;
-#endif
-#endif
+	LPCVOID GetMap() const override;
 
 protected:
 
-   afx_msg LRESULT OnDraw2D(WPARAM wParam, LPARAM lParam);
 
    DECLARE_MESSAGE_MAP()
 
 public:
-
-   afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-
-private:
-
-   HRESULT Create2DResources();
-
-   CD2DBitmap* m_pBitmap;
-   CSize m_szBitmap;
-protected:
-    afx_msg LRESULT OnRecreated2dresources(WPARAM wParam, LPARAM lParam);
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 };
-
-#ifndef _DEBUG  // version Debug dans MainTabView.cpp
-inline CMainDocument* CHeightMapView::GetDocument() const
-{
-   return reinterpret_cast <CMainDocument*>(m_pDocument);
-}
-
-#endif

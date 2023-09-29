@@ -45,12 +45,19 @@ public:
 
    CNoiseMapGeneratorApp() noexcept;
 
+private:
+
+    IWICImagingFactory* m_pWICFactory;
+
 
 // Substitutions
 
 public:
 
-   virtual BOOL InitInstance();
+   BOOL InitInstance() override;
+   BOOL ExitInstance() override;
+
+   IWICImagingFactory* GetWICFactory() const;
 
 // Implémentation
    BOOL m_bHiColorIcons;

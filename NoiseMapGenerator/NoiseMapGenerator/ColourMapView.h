@@ -28,52 +28,27 @@
 
 #pragma once
 
-class CMainDocument;
+#include "MapView.h"
 
-class CColourMapView : public CView
+class CColourMapView : public CMapView
 {
+#pragma region Constructors
+
    DECLARE_DYNCREATE(CColourMapView)
 
 protected:
 
-   CColourMapView();                // constructeur protégé utilisé par la création dynamique
+   CColourMapView();             
    virtual ~CColourMapView();
 
-public:
+#pragma endregion
 
-   CMainDocument* GetDocument() const;
-   virtual void OnDraw(CDC* pDC);            // substitué pour dessiner cette vue
-
-#ifdef _DEBUG
-   virtual void AssertValid() const;
-
-#ifndef _WIN32_WCE
-   virtual void Dump(CDumpContext& dc) const;
-#endif
-#endif
+   LPCVOID GetMap() const override;
 
 protected:
-
-   afx_msg LRESULT OnDraw2D(WPARAM wParam, LPARAM lParam);
 
    DECLARE_MESSAGE_MAP()
 
 public:
-
-   afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-
-private:
-
-   HRESULT Create2DResources();
-
-   CD2DBitmap* m_pBitmap;
-   CSize m_szBitmap;
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 };
-
-#ifndef _DEBUG  // version Debug dans MainTabView.cpp
-inline CMainDocument* CColourMapView::GetDocument() const
-{
-   return reinterpret_cast <CMainDocument*>(m_pDocument);
-}
-
-#endif

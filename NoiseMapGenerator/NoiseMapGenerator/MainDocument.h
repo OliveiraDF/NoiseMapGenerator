@@ -89,8 +89,8 @@ public:
 
 private:
 
-   COLORREF* m_pColourMap;
-   COLORREF* m_pHeightMap;
+    IWICBitmap* m_pColourMap;
+    IWICBitmap* m_pHeightMap;
    DOUBLE* m_pNoiseMap;
    DOUBLE m_fScale;
    UINT m_uOctaveCount;
@@ -108,8 +108,8 @@ public:
    FLOAT GetLacunarity() const;
    FLOAT GetPersistance() const;
    UINT GetOctaveCount() const;
-   const COLORREF* GetColourMap() const;
-   const COLORREF* GetHeightMap() const;
+   IWICBitmap* GetColourMap() const;
+   IWICBitmap* GetHeightMap() const;
 
 private:
 
