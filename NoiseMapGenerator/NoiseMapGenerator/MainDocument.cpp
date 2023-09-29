@@ -290,6 +290,114 @@ IWICBitmap* CMainDocument::GetHeightMap() const
     return m_pHeightMap;
 }
 
+HRESULT CMainDocument::ExportColourMap(LPCTSTR lpszFileName) const
+{
+    return ExportMap(lpszFileName, m_pColourMap);
+}
+
+HRESULT CMainDocument::ExportHeightMap(LPCTSTR lpszFileName) const
+{
+    return ExportMap(lpszFileName, m_pHeightMap);
+}
+
+HRESULT CMainDocument::ExportMap(LPCTSTR lpszFileName, IWICBitmap* pMap) const
+{
+    ASSERT(lpszFileName);
+    ASSERT(pMap);
+
+    IWICImagingFactory* pFactory = theApp.GetWICFactory();
+    ASSERT(pFactory);
+
+	HRESULT hr = S_OK;
+	IWICStream* pStream = NULL;
+	IWICBitmapEncoder* pEncoder = NULL;
+	IWICBitmapFrameEncode* pFrame = NULL;
+	IPropertyBag2* pPropertyBag = NULL;
+
+	do
+	{
+		hr = pFactory->CreateStream(&pStream);
+		if (FAILED(hr))
+		{
+			break;
+		}
+
+		hr = pStream->InitializeFromFilename(lpszFileName, GENERIC_WRITE);
+		if (FAILED(hr))
+		{
+			break;
+		}
+
+		hr = pFactory->CreateEncoder(GUID_ContainerFormatPng, NULL, &pEncoder);
+		if (FAILED(hr))
+		{
+			break;
+		}
+
+		hr = pEncoder->Initialize(pStream, WICBitmapEncoderNoCache);
+		if (FAILED(hr))
+		{
+			break;
+		}
+
+		hr = pEncoder->CreateNewFrame(&pFrame, &pPropertyBag);
+		if (FAILED(hr))
+		{
+			break;
+		}
+
+		hr = pFrame->Initialize(pPropertyBag);
+		if (FAILED(hr))
+		{
+			break;
+		}
+
+		hr = pFrame->WriteSource(pMap, NULL);
+		if (FAILED(hr))
+		{
+			break;
+		}
+
+		hr = pFrame->Commit();
+		if (FAILED(hr))
+		{
+			break;
+		}
+
+		hr = pEncoder->Commit();
+		if (FAILED(hr))
+		{
+			break;
+		}
+
+	} while (RETRO_NULL_WHILE_LOOP_CONDITION);
+
+	if (pPropertyBag)
+	{
+		pPropertyBag->Release();
+		pPropertyBag = NULL;
+	}
+
+	if (pFrame)
+	{
+		pFrame->Release();
+		pFrame = NULL;
+	}
+
+	if (pEncoder)
+	{
+		pEncoder->Release();
+		pEncoder = NULL;
+	}
+
+	if (pStream)
+	{
+		pStream->Release();
+		pStream = NULL;
+	}
+
+    return hr;
+}
 
 void CMainDocument::Clear()
 {

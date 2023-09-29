@@ -30,24 +30,22 @@
 #include "NoiseMapGenerator.h"
 #include "ConfigurationPane.h"
 
-
-// CConfigurationPane
-
 IMPLEMENT_DYNAMIC(CConfigurationPane, CDockablePane)
 
 CConfigurationPane::CConfigurationPane()
 {
+
 }
 
 CConfigurationPane::~CConfigurationPane()
 {
+
 }
 
 BEGIN_MESSAGE_MAP(CConfigurationPane, CDockablePane)
 ON_WM_CREATE()
 ON_WM_SIZE()
 END_MESSAGE_MAP()
-
 
 int CConfigurationPane::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {

@@ -47,6 +47,8 @@ ON_COMMAND(ID_VIEW_LOG, &CMainFrame::OnViewLog)
 ON_UPDATE_COMMAND_UI(ID_VIEW_LOG, &CMainFrame::OnUpdateViewLog)
 ON_COMMAND(ID_VIEW_FULLSCREEN, &CMainFrame::OnViewFullscreen)
 ON_UPDATE_COMMAND_UI(ID_VIEW_FULLSCREEN, &CMainFrame::OnUpdateViewFullscreen)
+ON_COMMAND(ID_FILE_EXPORT_COLOURMAP, &CMainFrame::OnFileExportColourMap)
+ON_COMMAND(ID_FILE_EXPORT_HEIGHTMAP, &CMainFrame::OnFileExportHeightMap)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -213,4 +215,49 @@ void CMainFrame::OnUpdateViewFullscreen(CCmdUI* pCmdUI)
 {
    // TODO: ajoutez ici le code du gestionnaire d'interface utilisateur de mise à jour des commandes
    pCmdUI->SetCheck(IsFullScreen());
+}
+
+void CMainFrame::OnFileExportColourMap()
+{
+    // TODO: ajoutez ici le code de votre gestionnaire de commande
+    CString strFullPath;
+    const CMainDocument* pDocument = OnFileExportMap(_T("ColourMap"), strFullPath);
+    if (pDocument)
+    {
+        pDocument->ExportColourMap(strFullPath.GetString());
+    }
+}
+
+void CMainFrame::OnFileExportHeightMap()
+{
+    // TODO: ajoutez ici le code de votre gestionnaire de commande
+    CString strFullPath;
+    const CMainDocument* pDocument = OnFileExportMap(_T("HeightMap"), strFullPath);
+    if (pDocument)
+    {
+        pDocument->ExportHeightMap(strFullPath.GetString());
+    }
+}
+
+const CMainDocument* CMainFrame::OnFileExportMap(LPCTSTR lpszMap, CString& strFullPath)
+{
+    CFileDialog FileDialog(FALSE, _T("png"), lpszMap, 6UL, _T("PNG File (*.png)|*.png|"), this);
+
+    const INT_PTR nRet = FileDialog.DoModal();
+    if (nRet == IDOK)
+    {
+        const CString strFolderPath = FileDialog.GetFolderPath();
+        const CString strFileName = FileDialog.GetFileName();
+
+        strFullPath.Format(_T("%s\\%s"), strFolderPath.GetString(), strFileName.GetString());
+
+        ASSERT_KINDOF(CMainDocument, GetActiveDocument());
+        CMainDocument* pDocument = STATIC_DOWNCAST(CMainDocument, GetActiveDocument());
+        ASSERT(pDocument);
+        ASSERT_VALID(pDocument);
+
+        return pDocument;
+    }
+
+    return NULL;
 }

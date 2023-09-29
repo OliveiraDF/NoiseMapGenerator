@@ -110,9 +110,12 @@ public:
    UINT GetOctaveCount() const;
    IWICBitmap* GetColourMap() const;
    IWICBitmap* GetHeightMap() const;
+   HRESULT ExportColourMap(LPCTSTR lpszFileName) const;
+   HRESULT ExportHeightMap(LPCTSTR lpszFileName) const;
 
 private:
 
+    HRESULT ExportMap(LPCTSTR lpszFileName, IWICBitmap* pMap) const;
    void Clear();
 
 public:

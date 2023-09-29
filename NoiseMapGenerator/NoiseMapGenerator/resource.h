@@ -50,13 +50,18 @@
 #define ID_VIEW_FULLSCREEN              32781
 #define ID_BUTTON32784                  32784
 #define ID_LOG_CLEAR                    32784
+#define ID_FICHIER_EXPORTER             32785
+#define ID_EXPORTER_IMAGEPROFONDEUR     32786
+#define ID_EXPORTER_IMAGEPROFONDEUR32787 32787
+#define ID_FILE_EXPORT_COLOURMAP        32788
+#define ID_FILE_EXPORT_HEIGHTMAP        32789
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        313
-#define _APS_NEXT_COMMAND_VALUE         32785
+#define _APS_NEXT_COMMAND_VALUE         32790
 #define _APS_NEXT_CONTROL_VALUE         1001
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

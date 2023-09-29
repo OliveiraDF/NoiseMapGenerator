@@ -30,6 +30,8 @@
 
 #include "ConfigurationPane.h"
 
+class CMainDocument;
+
 class CMainFrame : public CFrameWndEx
 {
 protected:
@@ -63,6 +65,10 @@ public:
    virtual void Dump(CDumpContext& dc) const;
 #endif
 
+private:
+
+	const CMainDocument* OnFileExportMap(LPCTSTR lpszMap, CString& strFullPath);
+
 protected:
 
    CMFCMenuBar m_wndMenuBar;
@@ -86,5 +92,7 @@ public:
    afx_msg void OnUpdateViewLog(CCmdUI* pCmdUI);
    afx_msg void OnViewFullscreen();
    afx_msg void OnUpdateViewFullscreen(CCmdUI* pCmdUI);
+   afx_msg void OnFileExportColourMap();
+   afx_msg void OnFileExportHeightMap();
 
 };
