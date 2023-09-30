@@ -26,4 +26,4 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1
 
     - name: Run MSBuild
-      run: msbuild .\NoiseMapGenerator.sln -property:Configuration=Release
+      run: msbuild NoiseMapGenerator\NoiseMapGenerator.vcxproj -property:Configuration=Release
