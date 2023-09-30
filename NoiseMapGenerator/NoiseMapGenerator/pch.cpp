@@ -31,14 +31,3 @@
 #include "pch.h"
 
 // Quand vous utilisez des en-têtes précompilés, ce fichier source est nécessaire pour la réussite de la compilation.
-
-CString Translate(UINT uID)
-{
-   CString s_zTranslate;
-
-   BOOL bRet = s_zTranslate.LoadString(uID);
-
-   ASSERT(bRet);
-
-   return s_zTranslate;
-}

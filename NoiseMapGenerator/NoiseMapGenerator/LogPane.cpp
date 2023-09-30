@@ -49,59 +49,59 @@ END_MESSAGE_MAP()
 
 int CLogPane::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-   if (CDockablePane::OnCreate(lpCreateStruct) == -1)
-   {
-      return -1;
-   }
+	if (CDockablePane::OnCreate(lpCreateStruct) == -1)
+	{
+		return -1;
+	}
 
-   if (!m_wndToolBar.Create(this, AFX_DEFAULT_TOOLBAR_STYLE, AFX_IDW_TOOLBAR + 1) ||
-       !m_wndToolBar.LoadToolBar(IDR_TOOLBAR_LOG, 0, 0, TRUE))
-   {
-      return -1;
-   }
+	if (!m_wndToolBar.Create(this, AFX_DEFAULT_TOOLBAR_STYLE, AFX_IDW_TOOLBAR + 1) ||
+		 !m_wndToolBar.LoadToolBar(IDR_TOOLBAR_LOG, 0, 0, TRUE))
+	{
+		return -1;
+	}
 
-   m_wndToolBar.SetPaneStyle(m_wndToolBar.GetPaneStyle() | CBRS_TOOLTIPS | CBRS_FLYBY);
-   m_wndToolBar.SetPaneStyle(m_wndToolBar.GetPaneStyle() & ~(CBRS_GRIPPER | CBRS_SIZE_DYNAMIC | CBRS_BORDER_TOP | CBRS_BORDER_BOTTOM | CBRS_BORDER_LEFT | CBRS_BORDER_RIGHT));
-   m_wndToolBar.SetRouteCommandsViaFrame(FALSE);
+	m_wndToolBar.SetPaneStyle(m_wndToolBar.GetPaneStyle() | CBRS_TOOLTIPS | CBRS_FLYBY);
+	m_wndToolBar.SetPaneStyle(m_wndToolBar.GetPaneStyle() & ~(CBRS_GRIPPER | CBRS_SIZE_DYNAMIC | CBRS_BORDER_TOP | CBRS_BORDER_BOTTOM | CBRS_BORDER_LEFT | CBRS_BORDER_RIGHT));
+	m_wndToolBar.SetRouteCommandsViaFrame(FALSE);
 
-   // TODO:  Ajoutez ici votre code de création spécialisé
-   if (!m_ctrlLogList.Create(LBS_NOINTEGRALHEIGHT | LBS_NOSEL | WS_CHILD | WS_VISIBLE | WS_HSCROLL | WS_VSCROLL, { 0, 0, 0, 0 }, this, 1))
-   {
-      return -1;
-   }
+	// TODO:  Ajoutez ici votre code de création spécialisé
+	if (!m_ctrlLogList.Create(LBS_NOINTEGRALHEIGHT | LBS_NOSEL | WS_CHILD | WS_VISIBLE | WS_HSCROLL | WS_VSCROLL, { 0, 0, 0, 0 }, this, 1))
+	{
+		return -1;
+	}
 
-   return 0;
+	return 0;
 }
 
 void CLogPane::OnSize(UINT nType, int cx, int cy)
 {
-   CDockablePane::OnSize(nType, cx, cy);
+	CDockablePane::OnSize(nType, cx, cy);
 
-   // TODO: ajoutez ici le code de votre gestionnaire de messages
-   const INT cyTlb = m_wndToolBar.CalcFixedLayout(FALSE, TRUE).cy;
+	// TODO: ajoutez ici le code de votre gestionnaire de messages
+	const INT cyTlb = m_wndToolBar.CalcFixedLayout(FALSE, TRUE).cy;
 
-   m_wndToolBar.SetWindowPos(NULL, 0, 0, cx, cyTlb, SWP_NOACTIVATE | SWP_NOZORDER);
-   m_ctrlLogList.SetWindowPos(NULL, 0, cyTlb, cx, cy - cyTlb, SWP_NOACTIVATE | SWP_NOZORDER);
+	m_wndToolBar.SetWindowPos(NULL, 0, 0, cx, cyTlb, SWP_NOACTIVATE | SWP_NOZORDER);
+	m_ctrlLogList.SetWindowPos(NULL, 0, cyTlb, cx, cy - cyTlb, SWP_NOACTIVATE | SWP_NOZORDER);
 }
 
 void CLogPane::OnMessage(const CTime& dtDate, scion::core::ELogLevel eLogLevel, LPCTSTR lpszMessage)
 {
-   const CString strISO8601 = dtDate.Format(_T("%FT%T%z"));
-   const CString strLevel   = scion::core::LogLevelToString(eLogLevel);
+	const CString strISO8601 = dtDate.Format(_T("%FT%T%z"));
+	const CString strLevel   = scion::core::LogLevelToString(eLogLevel);
 
-   CString strLog;
+	CString strLog;
 
-   strLog.Format(_T("[%s] [%s] %s"), strISO8601.GetString(), strLevel.GetString(), lpszMessage);
+	strLog.Format(_T("[%s] [%s] %s"), strISO8601.GetString(), strLevel.GetString(), lpszMessage);
 
-   const INT nIndex = m_ctrlLogList.AddString(strLog.GetString());
-   if (nIndex >= 0)
-   {
-      m_ctrlLogList.SetItemData(nIndex, eLogLevel);
-   }
+	const INT nIndex = m_ctrlLogList.AddString(strLog.GetString());
+	if (nIndex >= 0)
+	{
+		m_ctrlLogList.SetItemData(nIndex, eLogLevel);
+	}
 }
 
 void CLogPane::OnLogClear()
 {
-   // TODO: ajoutez ici le code de votre gestionnaire de commande
-   m_ctrlLogList.ResetContent();
+	// TODO: ajoutez ici le code de votre gestionnaire de commande
+	m_ctrlLogList.ResetContent();
 }

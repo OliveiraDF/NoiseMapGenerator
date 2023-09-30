@@ -32,23 +32,33 @@
 
 class CConfigurationPane : public CDockablePane
 {
-   DECLARE_DYNAMIC(CConfigurationPane)
+	#pragma region Constructors
+
+	DECLARE_DYNAMIC(CConfigurationPane)
 
 public:
 
-   CConfigurationPane();
-   virtual ~CConfigurationPane();
+	CConfigurationPane();
+	virtual ~CConfigurationPane();
 
-protected:
-
-   DECLARE_MESSAGE_MAP()
+	#pragma endregion
+	#pragma region Attributes
 
 private:
 
-   CConfigurationPropCtrl m_ctrlConfiguration;
+	CConfigurationPropCtrl m_ctrlConfiguration;
+
+	#pragma endregion
+	#pragma region Messages
+
+protected:
+
+	DECLARE_MESSAGE_MAP()
 
 public:
 
-   afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-   afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void OnSize(UINT nType, int cx, int cy);
+
+	#pragma endregion
 };

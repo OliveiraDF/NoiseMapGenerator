@@ -46,17 +46,17 @@ END_MESSAGE_MAP()
 
 void CLogToolBar::OnUpdateCmdUI(CFrameWnd*, BOOL bDisableIfNoHndler)
 {
-   CMFCToolBar::OnUpdateCmdUI((CFrameWnd*)GetOwner(), bDisableIfNoHndler);
+	CMFCToolBar::OnUpdateCmdUI((CFrameWnd*)GetOwner(), bDisableIfNoHndler);
 }
 
 BOOL CLogToolBar::AllowShowOnList() const
 {
-   return FALSE;
+	return FALSE;
 }
 
 void CLogToolBar::AdjustLayout()
 {
-   CMFCToolBar::AdjustLayout();
+	CMFCToolBar::AdjustLayout();
 
-   ((CLogPane*)GetParent())->AdjustLayout();
+	((CLogPane*)GetParent())->AdjustLayout();
 }

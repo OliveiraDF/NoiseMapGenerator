@@ -30,35 +30,48 @@
 
 class CConfigurationPropCtrl : public CMFCPropertyGridCtrl
 {
-   DECLARE_DYNAMIC(CConfigurationPropCtrl)
+	#pragma region Constructors
+
+	DECLARE_DYNAMIC(CConfigurationPropCtrl)
 
 public:
 
-   CConfigurationPropCtrl();
-   virtual ~CConfigurationPropCtrl();
+	CConfigurationPropCtrl();
+	virtual ~CConfigurationPropCtrl();
 
-protected:
-
-   DECLARE_MESSAGE_MAP()
-
-public:
-
-   afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	#pragma endregion
+	#pragma region Attributes
 
 private:
 
-   CMFCPropertyGridProperty* m_pSizeX;
-   CMFCPropertyGridProperty* m_pSizeY;
-   CMFCPropertyGridProperty* m_pNoiseScale;
-   CMFCPropertyGridProperty* m_pOctaveCount;
-   CMFCPropertyGridProperty* m_pPersistance;
-   CMFCPropertyGridProperty* m_pLacunarity;
+	CMFCPropertyGridProperty* m_pSizeX;
+	CMFCPropertyGridProperty* m_pSizeY;
+	CMFCPropertyGridProperty* m_pNoiseScale;
+	CMFCPropertyGridProperty* m_pOctaveCount;
+	CMFCPropertyGridProperty* m_pPersistance;
+	CMFCPropertyGridProperty* m_pLacunarity;
 
-protected:
-
-   afx_msg LRESULT OnNewOpenDocument(WPARAM wParam, LPARAM lParam);
+	#pragma endregion
+	#pragma region Overridables
 
 public:
 
-   void OnPropertyChanged(CMFCPropertyGridProperty* pProp) const override;
+	void OnPropertyChanged(CMFCPropertyGridProperty* pProp) const override;
+
+	#pragma endregion
+	#pragma region Messages
+
+protected:
+
+	DECLARE_MESSAGE_MAP()
+
+public:
+
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+
+protected:
+
+	afx_msg LRESULT OnNewOpenDocument(WPARAM wParam, LPARAM lParam);
+
+	#pragma endregion
 };

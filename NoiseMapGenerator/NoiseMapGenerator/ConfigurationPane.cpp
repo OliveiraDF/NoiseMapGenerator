@@ -30,6 +30,8 @@
 #include "NoiseMapGenerator.h"
 #include "ConfigurationPane.h"
 
+#pragma region Constructors
+
 IMPLEMENT_DYNAMIC(CConfigurationPane, CDockablePane)
 
 CConfigurationPane::CConfigurationPane()
@@ -40,6 +42,9 @@ CConfigurationPane::~CConfigurationPane()
 {
 }
 
+#pragma endregion
+#pragma region Messages
+
 BEGIN_MESSAGE_MAP(CConfigurationPane, CDockablePane)
 ON_WM_CREATE()
 ON_WM_SIZE()
@@ -47,24 +52,26 @@ END_MESSAGE_MAP()
 
 int CConfigurationPane::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-   if (CDockablePane::OnCreate(lpCreateStruct) == -1)
-   {
-      return -1;
-   }
+	if (CDockablePane::OnCreate(lpCreateStruct) == -1)
+	{
+		return -1;
+	}
 
-   // TODO:  Ajoutez ici votre code de création spécialisé
-   if (!m_ctrlConfiguration.Create(WS_CHILD | WS_VISIBLE | WS_BORDER | WS_TABSTOP, { 0, 0, 0, 0 }, this, 1))
-   {
-      return -1;
-   }
+	// TODO:  Ajoutez ici votre code de création spécialisé
+	if (!m_ctrlConfiguration.Create(WS_CHILD | WS_VISIBLE | WS_BORDER | WS_TABSTOP, { 0, 0, 0, 0 }, this, 1))
+	{
+		return -1;
+	}
 
-   return 0;
+	return 0;
 }
 
 void CConfigurationPane::OnSize(UINT nType, int cx, int cy)
 {
-   CDockablePane::OnSize(nType, cx, cy);
+	CDockablePane::OnSize(nType, cx, cy);
 
-   // TODO: ajoutez ici le code de votre gestionnaire de messages
-   m_ctrlConfiguration.SetWindowPos(NULL, 0, 0, cx, cy, SWP_NOZORDER | SWP_NOACTIVATE);
+	// TODO: ajoutez ici le code de votre gestionnaire de messages
+	m_ctrlConfiguration.SetWindowPos(NULL, 0, 0, cx, cy, SWP_NOZORDER | SWP_NOACTIVATE);
 }
+
+#pragma endregion

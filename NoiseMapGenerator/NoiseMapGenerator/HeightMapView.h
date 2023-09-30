@@ -32,22 +32,22 @@
 
 class CHeightMapView : public CMapView
 {
-   DECLARE_DYNCREATE(CHeightMapView)
+	DECLARE_DYNCREATE(CHeightMapView)
 
 protected:
 
-   CHeightMapView();
-   virtual ~CHeightMapView();
+	CHeightMapView();
+	virtual ~CHeightMapView();
 
 public:
 
-   LPCVOID GetMap() const override;
+	LPCVOID GetMap() const override;
 
 protected:
 
-   DECLARE_MESSAGE_MAP()
+	DECLARE_MESSAGE_MAP()
 
 public:
 
-   afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 };

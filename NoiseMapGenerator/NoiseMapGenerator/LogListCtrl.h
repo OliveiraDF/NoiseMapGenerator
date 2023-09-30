@@ -30,19 +30,19 @@
 
 class CLogListCtrl : public CListBox
 {
-   DECLARE_DYNAMIC(CLogListCtrl)
+	DECLARE_DYNAMIC(CLogListCtrl)
 
 public:
 
-   CLogListCtrl();
-   virtual ~CLogListCtrl();
+	CLogListCtrl();
+	virtual ~CLogListCtrl();
 
 protected:
 
-   DECLARE_MESSAGE_MAP()
+	DECLARE_MESSAGE_MAP()
 
 public:
 
-   afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-   afx_msg HBRUSH CtlColor(CDC* /*pDC*/, UINT /*nCtlColor*/);
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg HBRUSH CtlColor(CDC* /*pDC*/, UINT /*nCtlColor*/);
 };

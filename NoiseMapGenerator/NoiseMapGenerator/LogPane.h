@@ -33,29 +33,29 @@
 
 class CLogPane : public CDockablePane, public scion::core::ILogObserver
 {
-   DECLARE_DYNAMIC(CLogPane)
+	DECLARE_DYNAMIC(CLogPane)
 
 public:
 
-   CLogPane();
-   virtual ~CLogPane();
+	CLogPane();
+	virtual ~CLogPane();
 
 private:
 
-   void OnMessage(const CTime& dtDate, scion::core::ELogLevel eLogLevel, LPCTSTR lpszMessage) override;
+	void OnMessage(const CTime& dtDate, scion::core::ELogLevel eLogLevel, LPCTSTR lpszMessage) override;
 
 protected:
 
-   DECLARE_MESSAGE_MAP()
+	DECLARE_MESSAGE_MAP()
 
 private:
 
-   CLogToolBar m_wndToolBar;
-   CLogListCtrl m_ctrlLogList;
+	CLogToolBar m_wndToolBar;
+	CLogListCtrl m_ctrlLogList;
 
 public:
 
-   afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-   afx_msg void OnSize(UINT nType, int cx, int cy);
-   afx_msg void OnLogClear();
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg void OnLogClear();
 };

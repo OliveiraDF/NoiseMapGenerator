@@ -32,42 +32,42 @@ class CMainDocument;
 
 class CMapView : public retro::gl::CRenderView
 {
-   #pragma region Constructors
+	#pragma region Constructors
 
-   DECLARE_DYNCREATE(CMapView)
+	DECLARE_DYNCREATE(CMapView)
 
 protected:
 
-   CMapView();
-   virtual ~CMapView();
+	CMapView();
+	virtual ~CMapView();
 
-   #pragma endregion
+	#pragma endregion
 
 private:
 
-   UINT m_uTextureID;
+	UINT m_uTextureID;
 
 public:
 
-   CMainDocument* GetDocument() const;
-   void OnInitialUpdate() override;
-   void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint) override;
-   void OnDraw(CDC* pDC) override;
-   virtual LPCVOID GetMap() const;
+	CMainDocument* GetDocument() const;
+	void OnInitialUpdate() override;
+	void OnUpdate(CView* pSender, LPARAM lHint, CObject* pHint) override;
+	void OnDraw(CDC* pDC) override;
+	virtual LPCVOID GetMap() const;
 
 protected:
 
-   DECLARE_MESSAGE_MAP()
+	DECLARE_MESSAGE_MAP()
 
 public:
 
-   afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 };
 
 #ifndef _DEBUG
 inline CMainDocument* CColourMapView::GetDocument() const
 {
-   return reinterpret_cast <CMainDocument*>(m_pDocument);
+	return reinterpret_cast <CMainDocument*>(m_pDocument);
 }
 
 #endif

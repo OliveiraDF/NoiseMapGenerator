@@ -32,24 +32,24 @@
 
 class CColourMapView : public CMapView
 {
-   #pragma region Constructors
+	#pragma region Constructors
 
-   DECLARE_DYNCREATE(CColourMapView)
-
-protected:
-
-   CColourMapView();
-   virtual ~CColourMapView();
-
-   #pragma endregion
-
-   LPCVOID GetMap() const override;
+	DECLARE_DYNCREATE(CColourMapView)
 
 protected:
 
-   DECLARE_MESSAGE_MAP()
+	CColourMapView();
+	virtual ~CColourMapView();
+
+	#pragma endregion
+
+	LPCVOID GetMap() const override;
+
+protected:
+
+	DECLARE_MESSAGE_MAP()
 
 public:
 
-   afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 };

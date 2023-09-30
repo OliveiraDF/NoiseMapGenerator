@@ -32,15 +32,15 @@ class CMainTabView : public CTabView
 {
 protected:
 
-   // création à partir de la sérialisation uniquement
-   CMainTabView() noexcept;
-   DECLARE_DYNCREATE(CMainTabView)
+	// création à partir de la sérialisation uniquement
+	CMainTabView() noexcept;
+	DECLARE_DYNCREATE(CMainTabView)
 
 // Attributs
 
 public:
 
-   CMainDocument* GetDocument() const;
+	CMainDocument* GetDocument() const;
 
 // Opérations
 
@@ -50,8 +50,8 @@ public:
 
 public:
 
-   virtual void OnDraw(CDC* pDC);        // substitué pour dessiner cette vue
-   virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
+	virtual void OnDraw(CDC* pDC);             // substitué pour dessiner cette vue
+	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
 
 protected:
 
@@ -59,10 +59,10 @@ protected:
 
 public:
 
-   virtual ~CMainTabView();
+	virtual ~CMainTabView();
 #ifdef _DEBUG
-   virtual void AssertValid() const;
-   virtual void Dump(CDumpContext& dc) const;
+	virtual void AssertValid() const;
+	virtual void Dump(CDumpContext& dc) const;
 #endif
 
 protected:
@@ -71,20 +71,20 @@ protected:
 
 protected:
 
-   afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
-   afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
+	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
+	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 
-   DECLARE_MESSAGE_MAP()
+	DECLARE_MESSAGE_MAP()
 
 public:
 
-   afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 };
 
-#ifndef _DEBUG  // version Debug dans MainTabView.cpp
+#ifndef _DEBUG
 inline CMainDocument* CMainTabView::GetDocument() const
 {
-   return reinterpret_cast <CMainDocument*>(m_pDocument);
+	return reinterpret_cast <CMainDocument*>(m_pDocument);
 }
 
 #endif

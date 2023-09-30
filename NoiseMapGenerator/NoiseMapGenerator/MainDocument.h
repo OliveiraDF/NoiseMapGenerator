@@ -32,93 +32,93 @@ class CMainDocument : public CDocument
 {
 public:
 
-   enum EProperty
-   {
-      EProperty_Size_X,
-      EProperty_Size_Y,
-      EProperty_Scale,
-      EProperty_OctaveCount,
-      EProperty_Persistance,
-      EProperty_Lacunarity,
+	enum EProperty
+	{
+		EProperty_Size_X,
+		EProperty_Size_Y,
+		EProperty_Scale,
+		EProperty_OctaveCount,
+		EProperty_Persistance,
+		EProperty_Lacunarity,
 
-      EProperty_COUNT
-   };
+		EProperty_COUNT
+	};
+
+	#pragma region Constructors
 
 protected:
 
-   // création à partir de la sérialisation uniquement
-   CMainDocument() noexcept;
-   DECLARE_DYNCREATE(CMainDocument)
-
-// Attributs
+	CMainDocument() noexcept;
+	DECLARE_DYNCREATE(CMainDocument)
 
 public:
 
-// Opérations
+	virtual ~CMainDocument();
+
+	#pragma endregion
+	#pragma region Attributes
+
+private:
+
+	IWICBitmap* m_pColourMap;
+	IWICBitmap* m_pHeightMap;
+	DOUBLE* m_pNoiseMap;
+	DOUBLE m_fScale;
+	UINT m_uOctaveCount;
+	FLOAT m_fPersistance;
+	FLOAT m_fLacunarity;
+	CSize m_szMap;
 
 public:
 
-// Substitutions
+	void SetProperty(DWORD_PTR uProperty, const COleVariant& Variant);
+	const CSize& GetSize() const;
+	LONG GetWidth() const;
+	LONG GetHeight() const;
+	DOUBLE GetScale() const;
+	FLOAT GetLacunarity() const;
+	FLOAT GetPersistance() const;
+	UINT GetOctaveCount() const;
+	IWICBitmap* GetColourMap() const;
+	IWICBitmap* GetHeightMap() const;
+
+	#pragma endregion
+	#pragma region Operations
 
 public:
 
-   virtual BOOL OnNewDocument();
-   virtual void Serialize(CArchive& ar);
+	HRESULT ExportColourMap(LPCTSTR lpszFileName) const;
+	HRESULT ExportHeightMap(LPCTSTR lpszFileName) const;
 
-// Implémentation
+	#pragma endregion
+	#pragma region Overridables
 
 public:
 
-   virtual ~CMainDocument();
+	BOOL OnNewDocument() override;
+	BOOL OnOpenDocument(LPCTSTR lpszPathName) override;
+	void Serialize(CArchive& ar) override;
+
 #ifdef _DEBUG
-   virtual void AssertValid() const;
-   virtual void Dump(CDumpContext& dc) const;
+	void AssertValid() const override;
+	void Dump(CDumpContext& dc) const override;
 #endif
 
-protected:
-
-// Fonctions générées de la table des messages
-
-protected:
-
-   DECLARE_MESSAGE_MAP()
-
-public:
-
-   HRESULT Generate(BOOL bRealloc);
+	#pragma endregion
+	#pragma region Implementations
 
 private:
 
-   IWICBitmap* m_pColourMap;
-   IWICBitmap* m_pHeightMap;
-   DOUBLE* m_pNoiseMap;
-   DOUBLE m_fScale;
-   UINT m_uOctaveCount;
-   FLOAT m_fPersistance;
-   FLOAT m_fLacunarity;
-   CSize m_szMap;
+	HRESULT Generate(BOOL bRealloc);
+	HRESULT ExportMap(LPCTSTR lpszFileName, IWICBitmap* pMap) const;
+	void Clear();
 
-public:
+	#pragma endregion
+	#pragma region Messages
 
-   void SetProperty(DWORD_PTR uProperty, const COleVariant& Variant);
-   const CSize& GetSize() const;
-   LONG GetWidth() const;
-   LONG GetHeight() const;
-   DOUBLE GetScale() const;
-   FLOAT GetLacunarity() const;
-   FLOAT GetPersistance() const;
-   UINT GetOctaveCount() const;
-   IWICBitmap* GetColourMap() const;
-   IWICBitmap* GetHeightMap() const;
-   HRESULT ExportColourMap(LPCTSTR lpszFileName) const;
-   HRESULT ExportHeightMap(LPCTSTR lpszFileName) const;
+protected:
 
-private:
+	DECLARE_MESSAGE_MAP()
 
-   HRESULT ExportMap(LPCTSTR lpszFileName, IWICBitmap* pMap) const;
-   void Clear();
-
-public:
-
-   virtual BOOL OnOpenDocument(LPCTSTR lpszPathName);
+	#pragma endregion
 };

@@ -29,7 +29,7 @@
 #pragma once
 
 #ifndef __AFXWIN_H__
-        #error "incluez 'pch.h' avant d'inclure ce fichier pour PCH"
+						#error "incluez 'pch.h' avant d'inclure ce fichier pour PCH"
 #endif
 
 #include "resource.h"       // symboles principaux
@@ -43,36 +43,36 @@ class CNoiseMapGeneratorApp : public CWinAppEx
 {
 public:
 
-   CNoiseMapGeneratorApp() noexcept;
+	CNoiseMapGeneratorApp() noexcept;
 
 private:
 
-   IWICImagingFactory* m_pWICFactory;
+	IWICImagingFactory* m_pWICFactory;
 
 
 // Substitutions
 
 public:
 
-   BOOL InitInstance() override;
-   BOOL ExitInstance() override;
+	BOOL InitInstance() override;
+	BOOL ExitInstance() override;
 
-   IWICImagingFactory* GetWICFactory() const;
+	IWICImagingFactory* GetWICFactory() const;
 
 // Implémentation
-   BOOL m_bHiColorIcons;
+	BOOL m_bHiColorIcons;
 
-   virtual void PreLoadState();
-   virtual void LoadCustomState();
-   virtual void SaveCustomState();
+	virtual void PreLoadState();
+	virtual void LoadCustomState();
+	virtual void SaveCustomState();
 
-   afx_msg void OnAppAbout();
+	afx_msg void OnAppAbout();
 
-   DECLARE_MESSAGE_MAP()
+	DECLARE_MESSAGE_MAP()
 
 public:
 
-   CString GetVersion() const;
+	CString GetVersion() const;
 };
 
 extern CNoiseMapGeneratorApp theApp;

@@ -36,9 +36,9 @@ class CMainFrame : public CFrameWndEx
 {
 protected:
 
-   // création à partir de la sérialisation uniquement
-   CMainFrame() noexcept;
-   DECLARE_DYNCREATE(CMainFrame)
+	// création à partir de la sérialisation uniquement
+	CMainFrame() noexcept;
+	DECLARE_DYNCREATE(CMainFrame)
 
 // Attributs
 
@@ -52,46 +52,46 @@ public:
 
 public:
 
-   virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
-   virtual BOOL LoadFrame(UINT nIDResource, DWORD dwDefaultStyle = WS_OVERLAPPEDWINDOW | FWS_ADDTOTITLE, CWnd* pParentWnd = nullptr, CCreateContext* pContext = nullptr);
+	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
+	virtual BOOL LoadFrame(UINT nIDResource, DWORD dwDefaultStyle = WS_OVERLAPPEDWINDOW | FWS_ADDTOTITLE, CWnd* pParentWnd = nullptr, CCreateContext* pContext = nullptr);
 
 // Implémentation
 
 public:
 
-   virtual ~CMainFrame();
+	virtual ~CMainFrame();
 #ifdef _DEBUG
-   virtual void AssertValid() const;
-   virtual void Dump(CDumpContext& dc) const;
+	virtual void AssertValid() const;
+	virtual void Dump(CDumpContext& dc) const;
 #endif
 
 private:
 
-   const CMainDocument* OnFileExportMap(LPCTSTR lpszMap, CString& strFullPath);
+	const CMainDocument* OnFileExportMap(LPCTSTR lpszMap, CString& strFullPath);
 
 protected:
 
-   CMFCMenuBar m_wndMenuBar;
-   CMFCStatusBar m_wndStatusBar;
-   retro::mfc::CLogPane m_wndLogPane;
-   CConfigurationPane m_wndConfigurationPane;
+	CMFCMenuBar m_wndMenuBar;
+	CMFCStatusBar m_wndStatusBar;
+	retro::mfc::CLogPane m_wndLogPane;
+	CConfigurationPane m_wndConfigurationPane;
 
 // Fonctions générées de la table des messages
 
 protected:
 
-   afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 
-   DECLARE_MESSAGE_MAP()
+	DECLARE_MESSAGE_MAP()
 
 public:
 
-   afx_msg void OnViewConfiguration();
-   afx_msg void OnUpdateViewConfiguration(CCmdUI* pCmdUI);
-   afx_msg void OnViewLog();
-   afx_msg void OnUpdateViewLog(CCmdUI* pCmdUI);
-   afx_msg void OnViewFullscreen();
-   afx_msg void OnUpdateViewFullscreen(CCmdUI* pCmdUI);
-   afx_msg void OnFileExportColourMap();
-   afx_msg void OnFileExportHeightMap();
+	afx_msg void OnViewConfiguration();
+	afx_msg void OnUpdateViewConfiguration(CCmdUI* pCmdUI);
+	afx_msg void OnViewLog();
+	afx_msg void OnUpdateViewLog(CCmdUI* pCmdUI);
+	afx_msg void OnViewFullscreen();
+	afx_msg void OnUpdateViewFullscreen(CCmdUI* pCmdUI);
+	afx_msg void OnFileExportColourMap();
+	afx_msg void OnFileExportHeightMap();
 };

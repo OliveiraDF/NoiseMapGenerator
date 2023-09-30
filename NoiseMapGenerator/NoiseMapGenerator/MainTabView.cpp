@@ -59,7 +59,7 @@ END_MESSAGE_MAP()
 
 CMainTabView::CMainTabView() noexcept
 {
-   // TODO: ajoutez ici du code de construction
+	// TODO: ajoutez ici du code de construction
 }
 
 CMainTabView::~CMainTabView()
@@ -68,37 +68,37 @@ CMainTabView::~CMainTabView()
 
 BOOL CMainTabView::PreCreateWindow(CREATESTRUCT& cs)
 {
-   // TODO: changez ici la classe ou les styles Window en modifiant
-   //  CREATESTRUCT cs
+	// TODO: changez ici la classe ou les styles Window en modifiant
+	//  CREATESTRUCT cs
 
-   return CTabView::PreCreateWindow(cs);
+	return CTabView::PreCreateWindow(cs);
 }
 
 // dessin de CMainTabView
 
 void CMainTabView::OnDraw(CDC* /*pDC*/)
 {
-   CMainDocument* pDoc = GetDocument();
+	CMainDocument* pDoc = GetDocument();
 
-   ASSERT_VALID(pDoc);
-   if (!pDoc)
-   {
-      return;
-   }
+	ASSERT_VALID(pDoc);
+	if (!pDoc)
+	{
+		return;
+	}
 
-   // TODO: ajoutez ici le code de dessin pour les données natives
+	// TODO: ajoutez ici le code de dessin pour les données natives
 }
 
 void CMainTabView::OnRButtonUp(UINT /* nFlags */, CPoint point)
 {
-   ClientToScreen(&point);
-   OnContextMenu(this, point);
+	ClientToScreen(&point);
+	OnContextMenu(this, point);
 }
 
 void CMainTabView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 {
 #ifndef SHARED_HANDLERS
-   theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, point.x, point.y, this, TRUE);
+	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, point.x, point.y, this, TRUE);
 #endif
 }
 
@@ -107,18 +107,18 @@ void CMainTabView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 #ifdef _DEBUG
 void CMainTabView::AssertValid() const
 {
-   CTabView::AssertValid();
+	CTabView::AssertValid();
 }
 
 void CMainTabView::Dump(CDumpContext& dc) const
 {
-   CTabView::Dump(dc);
+	CTabView::Dump(dc);
 }
 
 CMainDocument* CMainTabView::GetDocument() const  // la version non Debug est inline
 {
-   ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CMainDocument)));
-   return (CMainDocument*)m_pDocument;
+	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CMainDocument)));
+	return (CMainDocument*)m_pDocument;
 }
 
 #endif //_DEBUG
@@ -129,17 +129,17 @@ CMainDocument* CMainTabView::GetDocument() const  // la version non Debug est in
 
 int CMainTabView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-   if (CTabView::OnCreate(lpCreateStruct) == -1)
-   {
-      return -1;
-   }
+	if (CTabView::OnCreate(lpCreateStruct) == -1)
+	{
+		return -1;
+	}
 
-   // TODO:  Ajoutez ici votre code de création spécialisé
-   CCreateContext Context;
-   Context.m_pCurrentDoc = GetDocument();
+	// TODO:  Ajoutez ici votre code de création spécialisé
+	CCreateContext Context;
+	Context.m_pCurrentDoc = GetDocument();
 
-   AddView(RUNTIME_CLASS(CColourMapView), I18N(IDS_VIEW_COLOUR_MAP), 100, &Context);
-   AddView(RUNTIME_CLASS(CHeightMapView), I18N(IDS_VIEW_HEIGHT_MAP), 101, &Context);
+	AddView(RUNTIME_CLASS(CColourMapView), I18N(IDS_VIEW_COLOUR_MAP), 100, &Context);
+	AddView(RUNTIME_CLASS(CHeightMapView), I18N(IDS_VIEW_HEIGHT_MAP), 101, &Context);
 
-   return 0;
+	return 0;
 }

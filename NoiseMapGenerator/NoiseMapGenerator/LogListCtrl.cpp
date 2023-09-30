@@ -47,27 +47,27 @@ END_MESSAGE_MAP()
 
 int CLogListCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-   if (CListBox::OnCreate(lpCreateStruct) == -1)
-   {
-      return -1;
-   }
+	if (CListBox::OnCreate(lpCreateStruct) == -1)
+	{
+		return -1;
+	}
 
-   // TODO:  Ajoutez ici votre code de création spécialisé
-   SetFont(&afxGlobalData.fontRegular);
+	// TODO:  Ajoutez ici votre code de création spécialisé
+	SetFont(&afxGlobalData.fontRegular);
 
-   return 0;
+	return 0;
 }
 
 HBRUSH CLogListCtrl::CtlColor(CDC* pDC, UINT nCtlColor)
 {
-   // TODO:  Modifier ici les attributs du DC
-   if (nCtlColor == CTLCOLOR_LISTBOX)
-   {
-      pDC->SetBkColor(RGB(83, 83, 83));
-      pDC->SetTextColor(RGB(245, 245, 245));
-      return CreateSolidBrush(RGB(83, 83, 83));
-   }
+	// TODO:  Modifier ici les attributs du DC
+	if (nCtlColor == CTLCOLOR_LISTBOX)
+	{
+		pDC->SetBkColor(RGB(83, 83, 83));
+		pDC->SetTextColor(RGB(245, 245, 245));
+		return CreateSolidBrush(RGB(83, 83, 83));
+	}
 
-   // TODO:  Retourner un pinceau non NULL si le gestionnaire du parent ne doit pas être appelé
-   return NULL;
+	// TODO:  Retourner un pinceau non NULL si le gestionnaire du parent ne doit pas être appelé
+	return NULL;
 }

@@ -50,29 +50,29 @@ END_MESSAGE_MAP()
 
 LPCVOID CColourMapView::GetMap() const
 {
-   CMainDocument* pDoc = GetDocument();
+	CMainDocument* pDoc = GetDocument();
 
-   IWICBitmap* pBitmap = pDoc->GetColourMap();
+	IWICBitmap* pBitmap = pDoc->GetColourMap();
 
-   IWICBitmapLock* pLock = NULL;
+	IWICBitmapLock* pLock = NULL;
 
-   pBitmap->Lock(NULL, WICBitmapLockRead, &pLock);
+	pBitmap->Lock(NULL, WICBitmapLockRead, &pLock);
 
-   UINT             uBufferSize = 0;
-   WICInProcPointer pPixels     = NULL;
-   pLock->GetDataPointer(&uBufferSize, &pPixels);
+	UINT             uBufferSize = 0;
+	WICInProcPointer pPixels     = NULL;
+	pLock->GetDataPointer(&uBufferSize, &pPixels);
 
-   return pPixels;
+	return pPixels;
 }
 
 int CColourMapView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
-   if (CMapView::OnCreate(lpCreateStruct) == -1)
-   {
-      return -1;
-   }
+	if (CMapView::OnCreate(lpCreateStruct) == -1)
+	{
+		return -1;
+	}
 
-   // TODO:  Ajoutez ici votre code de création spécialisé
+	// TODO:  Ajoutez ici votre code de création spécialisé
 
-   return 0;
+	return 0;
 }
