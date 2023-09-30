@@ -44,37 +44,33 @@
 #define new    DEBUG_NEW
 #endif
 
-
-// CMainTabView
+#pragma region Constructors
 
 IMPLEMENT_DYNCREATE(CMainTabView, CTabView)
 
-BEGIN_MESSAGE_MAP(CMainTabView, CTabView)
-ON_WM_CONTEXTMENU()
-ON_WM_RBUTTONUP()
-ON_WM_CREATE()
-END_MESSAGE_MAP()
-
-// construction/destruction de CMainTabView
-
 CMainTabView::CMainTabView() noexcept
 {
-	// TODO: ajoutez ici du code de construction
+	
 }
 
 CMainTabView::~CMainTabView()
 {
+
 }
 
-BOOL CMainTabView::PreCreateWindow(CREATESTRUCT& cs)
+#pragma endregion
+#pragma region Operations
+
+#ifdef _DEBUG
+CMainDocument* CMainTabView::GetDocument() const
 {
-	// TODO: changez ici la classe ou les styles Window en modifiant
-	//  CREATESTRUCT cs
-
-	return CTabView::PreCreateWindow(cs);
+	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CMainDocument)));
+	return (CMainDocument*)m_pDocument;
 }
+#endif
 
-// dessin de CMainTabView
+#pragma endregion
+#pragma region Overridables
 
 void CMainTabView::OnDraw(CDC* /*pDC*/)
 {
@@ -85,9 +81,33 @@ void CMainTabView::OnDraw(CDC* /*pDC*/)
 	{
 		return;
 	}
-
-	// TODO: ajoutez ici le code de dessin pour les données natives
 }
+
+BOOL CMainTabView::PreCreateWindow(CREATESTRUCT& cs)
+{
+	return CTabView::PreCreateWindow(cs);
+}
+
+#ifdef _DEBUG
+void CMainTabView::AssertValid() const
+{
+	CTabView::AssertValid();
+}
+
+void CMainTabView::Dump(CDumpContext& dc) const
+{
+	CTabView::Dump(dc);
+}
+#endif
+
+#pragma endregion
+#pragma region Messages
+
+BEGIN_MESSAGE_MAP(CMainTabView, CTabView)
+	ON_WM_CONTEXTMENU()
+	ON_WM_RBUTTONUP()
+	ON_WM_CREATE()
+END_MESSAGE_MAP()
 
 void CMainTabView::OnRButtonUp(UINT /* nFlags */, CPoint point)
 {
@@ -101,31 +121,6 @@ void CMainTabView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 	theApp.GetContextMenuManager()->ShowPopupMenu(IDR_POPUP_EDIT, point.x, point.y, this, TRUE);
 #endif
 }
-
-// diagnostics de CMainTabView
-
-#ifdef _DEBUG
-void CMainTabView::AssertValid() const
-{
-	CTabView::AssertValid();
-}
-
-void CMainTabView::Dump(CDumpContext& dc) const
-{
-	CTabView::Dump(dc);
-}
-
-CMainDocument* CMainTabView::GetDocument() const  // la version non Debug est inline
-{
-	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CMainDocument)));
-	return (CMainDocument*)m_pDocument;
-}
-
-#endif //_DEBUG
-
-
-// gestionnaires de messages de CMainTabView
-
 
 int CMainTabView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
@@ -143,3 +138,5 @@ int CMainTabView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	return 0;
 }
+
+#pragma endregion

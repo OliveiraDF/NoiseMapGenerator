@@ -29,7 +29,6 @@
 #include "pch.h"
 #include "framework.h"
 #include "NoiseMapGenerator.h"
-
 #include "MainFrm.h"
 #include "MainDocument.h"
 
@@ -37,21 +36,7 @@
 #define new    DEBUG_NEW
 #endif
 
-IMPLEMENT_DYNCREATE(CMainFrame, CFrameWndEx)
-
-BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
-ON_WM_CREATE()
-ON_COMMAND(ID_VIEW_CONFIGURATION, &CMainFrame::OnViewConfiguration)
-ON_UPDATE_COMMAND_UI(ID_VIEW_CONFIGURATION, &CMainFrame::OnUpdateViewConfiguration)
-ON_COMMAND(ID_VIEW_LOG, &CMainFrame::OnViewLog)
-ON_UPDATE_COMMAND_UI(ID_VIEW_LOG, &CMainFrame::OnUpdateViewLog)
-ON_COMMAND(ID_VIEW_FULLSCREEN, &CMainFrame::OnViewFullscreen)
-ON_UPDATE_COMMAND_UI(ID_VIEW_FULLSCREEN, &CMainFrame::OnUpdateViewFullscreen)
-ON_COMMAND(ID_FILE_EXPORT_COLOURMAP, &CMainFrame::OnFileExportColourMap)
-ON_COMMAND(ID_FILE_EXPORT_HEIGHTMAP, &CMainFrame::OnFileExportHeightMap)
-END_MESSAGE_MAP()
-
-static UINT indicators[] =
+static constexpr const UINT INDICATORS[] =
 {
 	ID_SEPARATOR,
 	ID_INDICATOR_CAPS,
@@ -59,14 +44,95 @@ static UINT indicators[] =
 	ID_INDICATOR_SCRL,
 };
 
+#pragma region Constructors
+
+IMPLEMENT_DYNCREATE(CMainFrame, CFrameWndEx)
+
 CMainFrame::CMainFrame() noexcept
 {
-	// TODO: ajoutez ici le code d'une initialisation de membre
 }
 
 CMainFrame::~CMainFrame()
 {
 }
+
+#pragma endregion
+#pragma region Overridables
+
+BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
+{
+	if (!CFrameWndEx::PreCreateWindow(cs))
+	{
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+BOOL CMainFrame::LoadFrame(UINT nIDResource, DWORD dwDefaultStyle, CWnd* pParentWnd, CCreateContext* pContext)
+{
+	if (!CFrameWndEx::LoadFrame(nIDResource, dwDefaultStyle, pParentWnd, pContext))
+	{
+		return FALSE;
+	}
+
+	return TRUE;
+}
+
+#ifdef _DEBUG
+void CMainFrame::AssertValid() const
+{
+	CFrameWndEx::AssertValid();
+}
+
+void CMainFrame::Dump(CDumpContext& dc) const
+{
+	CFrameWndEx::Dump(dc);
+}
+
+#endif
+
+#pragma endregion
+#pragma region Implementations
+
+const CMainDocument* CMainFrame::OnFileExportMap(LPCTSTR lpszMap, CString& strFullPath)
+{
+	CFileDialog FileDialog(FALSE, _T("png"), lpszMap, 6UL, _T("PNG File (*.png)|*.png|"), this);
+
+	const INT_PTR nRet = FileDialog.DoModal();
+
+	if (nRet == IDOK)
+	{
+		const CString strFolderPath = FileDialog.GetFolderPath();
+		const CString strFileName = FileDialog.GetFileName();
+
+		strFullPath.Format(_T("%s\\%s"), strFolderPath.GetString(), strFileName.GetString());
+
+		ASSERT_KINDOF(CMainDocument, GetActiveDocument());
+		CMainDocument* pDocument = STATIC_DOWNCAST(CMainDocument, GetActiveDocument());
+		ASSERT(pDocument);
+		ASSERT_VALID(pDocument);
+
+		return pDocument;
+	}
+
+	return NULL;
+}
+
+#pragma endregion
+#pragma region Messages
+
+BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
+	ON_WM_CREATE()
+	ON_COMMAND(ID_VIEW_CONFIGURATION, &CMainFrame::OnViewConfiguration)
+	ON_UPDATE_COMMAND_UI(ID_VIEW_CONFIGURATION, &CMainFrame::OnUpdateViewConfiguration)
+	ON_COMMAND(ID_VIEW_LOG, &CMainFrame::OnViewLog)
+	ON_UPDATE_COMMAND_UI(ID_VIEW_LOG, &CMainFrame::OnUpdateViewLog)
+	ON_COMMAND(ID_VIEW_FULLSCREEN, &CMainFrame::OnViewFullscreen)
+	ON_UPDATE_COMMAND_UI(ID_VIEW_FULLSCREEN, &CMainFrame::OnUpdateViewFullscreen)
+	ON_COMMAND(ID_FILE_EXPORT_COLOURMAP, &CMainFrame::OnFileExportColourMap)
+	ON_COMMAND(ID_FILE_EXPORT_HEIGHTMAP, &CMainFrame::OnFileExportHeightMap)
+END_MESSAGE_MAP()
 
 int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
@@ -78,20 +144,19 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if (!m_wndMenuBar.Create(this))
 	{
 		TRACE0("Impossible de créer la barre de menus\n");
-		return -1;                          // échec de la création
+		return -1;                         
 	}
 
 	m_wndMenuBar.SetPaneStyle(m_wndMenuBar.GetPaneStyle() | CBRS_SIZE_DYNAMIC | CBRS_TOOLTIPS | CBRS_FLYBY);
 
-	// empêche la barre de menus de prendre le focus lors de l'activation
 	CMFCPopupMenu::SetForceMenuFocus(FALSE);
 
 	if (!m_wndStatusBar.Create(this))
 	{
 		TRACE0("Impossible de créer la barre d'état\n");
-		return -1;                          // échec de la création
+		return -1;                        
 	}
-	m_wndStatusBar.SetIndicators(indicators, sizeof(indicators) / sizeof(UINT));
+	m_wndStatusBar.SetIndicators(INDICATORS, sizeof(INDICATORS) / sizeof(UINT));
 
 	if (!m_wndLogPane.Create(_T("Log"), this, { 0, 0, 200, 200 }, TRUE, ID_VIEW_LOG,
 									 WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | CBRS_BOTTOM | CBRS_FLOAT_MULTI))
@@ -130,41 +195,6 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	EnableFullScreenMainMenu(FALSE);
 
 	return 0;
-}
-
-BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
-{
-	if (!CFrameWndEx::PreCreateWindow(cs))
-	{
-		return FALSE;
-	}
-	// TODO: changez ici la classe ou les styles Window en modifiant
-	//  CREATESTRUCT cs
-
-	return TRUE;
-}
-
-#ifdef _DEBUG
-void CMainFrame::AssertValid() const
-{
-	CFrameWndEx::AssertValid();
-}
-
-void CMainFrame::Dump(CDumpContext& dc) const
-{
-	CFrameWndEx::Dump(dc);
-}
-
-#endif //_DEBUG
-
-BOOL CMainFrame::LoadFrame(UINT nIDResource, DWORD dwDefaultStyle, CWnd* pParentWnd, CCreateContext* pContext)
-{
-	if (!CFrameWndEx::LoadFrame(nIDResource, dwDefaultStyle, pParentWnd, pContext))
-	{
-		return FALSE;
-	}
-
-	return TRUE;
 }
 
 void CMainFrame::OnViewConfiguration()
@@ -241,26 +271,4 @@ void CMainFrame::OnFileExportHeightMap()
 	}
 }
 
-const CMainDocument* CMainFrame::OnFileExportMap(LPCTSTR lpszMap, CString& strFullPath)
-{
-	CFileDialog FileDialog(FALSE, _T("png"), lpszMap, 6UL, _T("PNG File (*.png)|*.png|"), this);
-
-	const INT_PTR nRet = FileDialog.DoModal();
-
-	if (nRet == IDOK)
-	{
-		const CString strFolderPath = FileDialog.GetFolderPath();
-		const CString strFileName   = FileDialog.GetFileName();
-
-		strFullPath.Format(_T("%s\\%s"), strFolderPath.GetString(), strFileName.GetString());
-
-		ASSERT_KINDOF(CMainDocument, GetActiveDocument());
-		CMainDocument* pDocument = STATIC_DOWNCAST(CMainDocument, GetActiveDocument());
-		ASSERT(pDocument);
-		ASSERT_VALID(pDocument);
-
-		return pDocument;
-	}
-
-	return NULL;
-}
+#pragma endregion

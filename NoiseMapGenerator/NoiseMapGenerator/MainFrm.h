@@ -34,40 +34,19 @@ class CMainDocument;
 
 class CMainFrame : public CFrameWndEx
 {
+#pragma region Constructors
+
 protected:
 
-	// création à partir de la sérialisation uniquement
 	CMainFrame() noexcept;
 	DECLARE_DYNCREATE(CMainFrame)
-
-// Attributs
-
-public:
-
-// Opérations
-
-public:
-
-// Substitutions
-
-public:
-
-	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
-	virtual BOOL LoadFrame(UINT nIDResource, DWORD dwDefaultStyle = WS_OVERLAPPEDWINDOW | FWS_ADDTOTITLE, CWnd* pParentWnd = nullptr, CCreateContext* pContext = nullptr);
-
-// Implémentation
 
 public:
 
 	virtual ~CMainFrame();
-#ifdef _DEBUG
-	virtual void AssertValid() const;
-	virtual void Dump(CDumpContext& dc) const;
-#endif
 
-private:
-
-	const CMainDocument* OnFileExportMap(LPCTSTR lpszMap, CString& strFullPath);
+#pragma endregion
+#pragma region Attributes
 
 protected:
 
@@ -76,13 +55,33 @@ protected:
 	retro::mfc::CLogPane m_wndLogPane;
 	CConfigurationPane m_wndConfigurationPane;
 
-// Fonctions générées de la table des messages
+#pragma endregion
+#pragma region Overridables
+
+public:
+
+	BOOL PreCreateWindow(CREATESTRUCT& cs) override;
+	BOOL LoadFrame(UINT nIDResource, DWORD dwDefaultStyle = WS_OVERLAPPEDWINDOW | FWS_ADDTOTITLE, CWnd* pParentWnd = NULL, CCreateContext* pContext = NULL) override;
+#ifdef _DEBUG
+	void AssertValid() const override;
+	void Dump(CDumpContext& dc) const override;
+#endif
+
+#pragma endregion
+#pragma region Implementations
+
+private:
+
+	const CMainDocument* OnFileExportMap(LPCTSTR lpszMap, CString& strFullPath);
+
+#pragma endregion
+#pragma region Messages
 
 protected:
 
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-
 	DECLARE_MESSAGE_MAP()
+
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 
 public:
 
@@ -94,4 +93,7 @@ public:
 	afx_msg void OnUpdateViewFullscreen(CCmdUI* pCmdUI);
 	afx_msg void OnFileExportColourMap();
 	afx_msg void OnFileExportHeightMap();
+
+#pragma endregion
+
 };

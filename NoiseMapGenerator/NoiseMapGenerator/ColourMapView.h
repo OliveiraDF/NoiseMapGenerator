@@ -42,8 +42,12 @@ protected:
 	virtual ~CColourMapView();
 
 	#pragma endregion
+#pragma region Overridables
 
 	LPCVOID GetMap() const override;
+
+#pragma endregion
+#pragma region Messages
 
 protected:
 
@@ -52,4 +56,7 @@ protected:
 public:
 
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+
+#pragma endregion
+
 };

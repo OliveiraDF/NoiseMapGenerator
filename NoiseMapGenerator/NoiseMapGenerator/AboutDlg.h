@@ -28,25 +28,35 @@
 
 #pragma once
 
-#include "MapView.h"
-
-class CHeightMapView : public CMapView
+class CAboutDlg : public CDialogEx
 {
 #pragma region Constructors
 
-	DECLARE_DYNCREATE(CHeightMapView)
+public:
 
-protected:
+	CAboutDlg() noexcept;
 
-	CHeightMapView();
-	virtual ~CHeightMapView();
+#ifdef AFX_DESIGN_TIME
+	enum
+	{
+		IDD = IDD_ABOUTBOX
+	};
+#endif
+
+#pragma endregion
+#pragma region Attributes
+
+private:
+
+	CString m_strProduct;
 
 #pragma endregion
 #pragma region Overridables
 
-public:
+protected:
 
-	LPCVOID GetMap() const override;
+	void DoDataExchange(CDataExchange* pDX) override;  
+	BOOL OnInitDialog() override;
 
 #pragma endregion
 #pragma region Messages
@@ -57,8 +67,9 @@ protected:
 
 public:
 
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
-
+	
 #pragma endregion
 
 };

@@ -43,10 +43,7 @@ CColourMapView::~CColourMapView()
 }
 
 #pragma endregion
-
-BEGIN_MESSAGE_MAP(CColourMapView, retro::gl::CRenderView)
-ON_WM_CREATE()
-END_MESSAGE_MAP()
+#pragma region Overridables
 
 LPCVOID CColourMapView::GetMap() const
 {
@@ -59,11 +56,18 @@ LPCVOID CColourMapView::GetMap() const
 	pBitmap->Lock(NULL, WICBitmapLockRead, &pLock);
 
 	UINT             uBufferSize = 0;
-	WICInProcPointer pPixels     = NULL;
+	WICInProcPointer pPixels = NULL;
 	pLock->GetDataPointer(&uBufferSize, &pPixels);
 
 	return pPixels;
 }
+
+#pragma endregion
+#pragma region Messages
+
+BEGIN_MESSAGE_MAP(CColourMapView, retro::gl::CRenderView)
+ON_WM_CREATE()
+END_MESSAGE_MAP()
 
 int CColourMapView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
@@ -76,3 +80,5 @@ int CColourMapView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	return 0;
 }
+
+#pragma endregion

@@ -29,50 +29,58 @@
 #pragma once
 
 #ifndef __AFXWIN_H__
-						#error "incluez 'pch.h' avant d'inclure ce fichier pour PCH"
+#error "incluez 'pch.h' avant d'inclure ce fichier pour PCH"
 #endif
 
-#include "resource.h"       // symboles principaux
-
-
-// CNoiseMapGeneratorApp :
-// Consultez NoiseMapGenerator.cpp pour l'implémentation de cette classe
-//
+#include "resource.h"       
 
 class CNoiseMapGeneratorApp : public CWinAppEx
 {
+#pragma region Constructors
+
 public:
 
 	CNoiseMapGeneratorApp() noexcept;
 
+#pragma endregion
+#pragma region Attributes
+
 private:
 
 	IWICImagingFactory* m_pWICFactory;
+	BOOL m_bHiColorIcons;
 
+public:
 
-// Substitutions
+	IWICImagingFactory* GetWICFactory() const;
+
+#pragma endregion
+#pragma region Operations
+
+public:
+
+	CString GetVersion() const;
+
+#pragma endregion
+#pragma region Overridables
 
 public:
 
 	BOOL InitInstance() override;
 	BOOL ExitInstance() override;
+	void PreLoadState() override;
+	void LoadCustomState() override;
+	void SaveCustomState() override;
 
-	IWICImagingFactory* GetWICFactory() const;
-
-// Implémentation
-	BOOL m_bHiColorIcons;
-
-	virtual void PreLoadState();
-	virtual void LoadCustomState();
-	virtual void SaveCustomState();
-
-	afx_msg void OnAppAbout();
+#pragma endregion
+#pragma region Messages
 
 	DECLARE_MESSAGE_MAP()
 
-public:
+	afx_msg void OnAppAbout();
 
-	CString GetVersion() const;
+#pragma endregion
+
 };
 
 extern CNoiseMapGeneratorApp theApp;

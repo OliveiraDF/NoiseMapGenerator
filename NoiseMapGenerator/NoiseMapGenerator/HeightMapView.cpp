@@ -30,19 +30,22 @@
 #include "HeightMapView.h"
 #include "MainDocument.h"
 
+#pragma region Constructors
+
 IMPLEMENT_DYNCREATE(CHeightMapView, CView)
 
 CHeightMapView::CHeightMapView()
 {
+
 }
 
 CHeightMapView::~CHeightMapView()
 {
+
 }
 
-BEGIN_MESSAGE_MAP(CHeightMapView, CView)
-ON_WM_CREATE()
-END_MESSAGE_MAP()
+#pragma endregion
+#pragma region Overridables
 
 LPCVOID CHeightMapView::GetMap() const
 {
@@ -55,11 +58,18 @@ LPCVOID CHeightMapView::GetMap() const
 	pBitmap->Lock(NULL, WICBitmapLockRead, &pLock);
 
 	UINT             uBufferSize = 0;
-	WICInProcPointer pPixels     = NULL;
+	WICInProcPointer pPixels = NULL;
 	pLock->GetDataPointer(&uBufferSize, &pPixels);
 
 	return pPixels;
 }
+
+#pragma endregion
+#pragma region Messages
+
+BEGIN_MESSAGE_MAP(CHeightMapView, CView)
+ON_WM_CREATE()
+END_MESSAGE_MAP()
 
 int CHeightMapView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
@@ -72,3 +82,5 @@ int CHeightMapView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	return 0;
 }
+
+#pragma endregion

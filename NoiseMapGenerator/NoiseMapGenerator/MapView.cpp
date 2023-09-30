@@ -44,10 +44,18 @@ CMapView::~CMapView()
 }
 
 #pragma endregion
+#pragma region Operations
 
-BEGIN_MESSAGE_MAP(CMapView, retro::gl::CRenderView)
-ON_WM_CREATE()
-END_MESSAGE_MAP()
+#ifdef _DEBUG
+CMainDocument* CMapView::GetDocument() const
+{
+	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CMainDocument)));
+	return (CMainDocument*)m_pDocument;
+}
+#endif
+
+#pragma endregion
+#pragma region Overridables
 
 void CMapView::OnInitialUpdate()
 {
@@ -153,15 +161,12 @@ LPCVOID CMapView::GetMap() const
 	return NULL;
 }
 
-#ifdef _DEBUG
+#pragma endregion
+#pragma region Messages
 
-CMainDocument* CMapView::GetDocument() const
-{
-	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CMainDocument)));
-	return (CMainDocument*)m_pDocument;
-}
-
-#endif
+BEGIN_MESSAGE_MAP(CMapView, retro::gl::CRenderView)
+	ON_WM_CREATE()
+END_MESSAGE_MAP()
 
 int CMapView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
@@ -183,3 +188,5 @@ int CMapView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	return 0;
 }
+
+#pragma endregion

@@ -26,39 +26,60 @@
  *
  */
 
-#pragma once
+#include "pch.h"
+#include "AboutDlg.h"
+#include "NoiseMapGenerator.h"
 
-#include "MapView.h"
-
-class CHeightMapView : public CMapView
-{
 #pragma region Constructors
 
-	DECLARE_DYNCREATE(CHeightMapView)
-
-protected:
-
-	CHeightMapView();
-	virtual ~CHeightMapView();
+CAboutDlg::CAboutDlg() noexcept
+	: CDialogEx(IDD_ABOUTBOX)
+{
+}
 
 #pragma endregion
 #pragma region Overridables
 
-public:
+void CAboutDlg::DoDataExchange(CDataExchange* pDX)
+{
+	CDialogEx::DoDataExchange(pDX);
+	DDX_Text(pDX, IDC_STATIC_ABOUT_PRODUCT, m_strProduct);
+}
 
-	LPCVOID GetMap() const override;
+BOOL CAboutDlg::OnInitDialog()
+{
+	CDialogEx::OnInitDialog();
+
+	m_strProduct = theApp.GetVersion();
+
+	UpdateData(FALSE);
+
+	return TRUE; 
+}
 
 #pragma endregion
 #pragma region Messages
 
-protected:
+BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
+	ON_WM_CTLCOLOR()
+	ON_WM_CREATE()
+END_MESSAGE_MAP()
 
-	DECLARE_MESSAGE_MAP()
+HBRUSH CAboutDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT uCtlColor)
+{
+	return RetroVisualManager::OnCtlColor(pDC, pWnd, uCtlColor);
+}
 
-public:
+int CAboutDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+	if (CDialogEx::OnCreate(lpCreateStruct) == -1)
+	{
+		return -1;
+	}
 
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	RetroVisualManager::SetWindowDarkAttribute(this);
+
+	return 0;
+}
 
 #pragma endregion
-
-};

@@ -37,6 +37,12 @@
     <Filter Include="Fichiers sources\Controls">
       <UniqueIdentifier>{d7d1be3a-72a0-4965-a53f-44b182c76a63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Dialogs">
+      <UniqueIdentifier>{2fd3388d-bdcd-4c53-b7da-aa3ee31aa04a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Dialogs">
+      <UniqueIdentifier>{264e3533-3ba0-4b7d-abe8-426ab6ce6713}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NoiseMapGenerator.h">
@@ -78,6 +84,9 @@
     <ClInclude Include="MapView.h">
       <Filter>Fichiers d%27en-tête\Views</Filter>
     </ClInclude>
+    <ClInclude Include="AboutDlg.h">
+      <Filter>Fichiers d%27en-tête\Dialogs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NoiseMapGenerator.cpp">
@@ -109,6 +118,9 @@
     </ClCompile>
     <ClCompile Include="MapView.cpp">
       <Filter>Fichiers sources\Views</Filter>
+    </ClCompile>
+    <ClCompile Include="AboutDlg.cpp">
+      <Filter>Fichiers sources\Dialogs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

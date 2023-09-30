@@ -30,61 +30,57 @@
 
 class CMainTabView : public CTabView
 {
+#pragma region Constructors
+
 protected:
 
-	// création à partir de la sérialisation uniquement
 	CMainTabView() noexcept;
 	DECLARE_DYNCREATE(CMainTabView)
 
-// Attributs
+public:
+
+	virtual ~CMainTabView();
+
+#pragma endregion
+#pragma region Operations
 
 public:
 
 	CMainDocument* GetDocument() const;
 
-// Opérations
+#pragma endregion
+#pragma region Overridables
 
 public:
 
-// Substitutions
-
-public:
-
-	virtual void OnDraw(CDC* pDC);             // substitué pour dessiner cette vue
-	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
-
-protected:
-
-// Implémentation
-
-public:
-
-	virtual ~CMainTabView();
+	void OnDraw(CDC* pDC) override;            
+	BOOL PreCreateWindow(CREATESTRUCT& cs) override;
 #ifdef _DEBUG
-	virtual void AssertValid() const;
-	virtual void Dump(CDumpContext& dc) const;
+	void AssertValid() const override;
+	void Dump(CDumpContext& dc) const override;
 #endif
 
+#pragma endregion
+#pragma region Messages
+
 protected:
 
-// Fonctions générées de la table des messages
-
-protected:
+	DECLARE_MESSAGE_MAP()
 
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
 
-	DECLARE_MESSAGE_MAP()
-
 public:
 
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+
+#pragma endregion
+
 };
 
 #ifndef _DEBUG
 inline CMainDocument* CMainTabView::GetDocument() const
 {
-	return reinterpret_cast <CMainDocument*>(m_pDocument);
+	return reinterpret_cast<CMainDocument*>(m_pDocument);
 }
-
 #endif

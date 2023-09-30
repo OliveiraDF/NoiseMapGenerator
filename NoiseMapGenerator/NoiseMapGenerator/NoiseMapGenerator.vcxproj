@@ -195,6 +195,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AboutDlg.h" />
     <ClInclude Include="ColourMapView.h" />
     <ClInclude Include="ConfigurationPane.h" />
     <ClInclude Include="ConfigurationPropCtrl.h" />
@@ -210,6 +211,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AboutDlg.cpp" />
     <ClCompile Include="ColourMapView.cpp" />
     <ClCompile Include="ConfigurationPane.cpp" />
     <ClCompile Include="ConfigurationPropCtrl.cpp" />
