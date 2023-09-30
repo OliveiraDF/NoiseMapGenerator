@@ -82,7 +82,7 @@ public:
 };
 
 #ifndef _DEBUG
-inline CMainDocument* CColourMapView::GetDocument() const
+inline CMainDocument* CMapView::GetDocument() const
 {
 	return reinterpret_cast <CMainDocument*>(m_pDocument);
 }
