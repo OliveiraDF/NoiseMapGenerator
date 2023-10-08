@@ -1,5 +1,5 @@
 # Noise Map Generator
-<p>Windows Application to generate Noise map with Perlin Noise algorithm from Scion API</p>
+<p>Windows Application to generate Noise map with Perlin Noise algorithm from RetroCode API</p>
 <p><b>Key features:</b></p>
 <ul>
   <li>MFC Application</li>
