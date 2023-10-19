@@ -39,7 +39,6 @@
 #include "framework.h"
 
 #include <propkey.h>
-#include <dwmapi.h>
 
 #ifdef _DEBUG
 #define MAKE_DUMP(x)    ::AfxDump(x)
