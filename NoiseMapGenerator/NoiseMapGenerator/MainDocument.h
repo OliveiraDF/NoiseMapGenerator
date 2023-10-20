@@ -44,6 +44,14 @@ public:
 		EProperty_COUNT
 	};
 
+	enum EHint : LPARAM
+	{
+		EHint_Recreate,
+		EHint_Update,
+
+		EHint_COUNT
+	};
+
 	#pragma region Constructors
 
 protected:

@@ -47,6 +47,7 @@ protected:
 private:
 
 	UINT m_uTextureID;
+	CSize	m_vWindowSize;
 
 #pragma endregion
 #pragma region Operations
