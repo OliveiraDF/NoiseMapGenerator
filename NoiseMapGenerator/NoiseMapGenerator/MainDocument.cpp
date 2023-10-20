@@ -338,7 +338,7 @@ HRESULT CMainDocument::Generate(BOOL bRealloc)
 
 	retro::core::Log(I18N(IDS_LOG_GENERATE_SUCCESS));
 
-	UpdateAllViews(NULL);
+	UpdateAllViews(NULL, bRealloc ? EHint_Recreate : EHint_Update);
 
 	return S_OK;
 }
